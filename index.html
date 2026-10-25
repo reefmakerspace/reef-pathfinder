@@ -1,11 +1,11 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>body{margin:0}[hidden]{display:none!important}</style></head><body>
 <title>REEF Pathfinder</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>
 /* Layout: dark brand bar → split hero (ask in words | tilted REEF panels that rearrange per choice) → 14-tile picker → result (recommendation + numbered route) → equipment index → footer. */
 :root{
   --red:#B71F34; --yellow:#FCC424; --blue:#05A7E0; --aqua:#7DCFD8; --ink:#010101; --coal:#231F20; --orange:#F15B29;
-  --bg:#F3F5F5; --surface:#FFFFFF; --sunk:#E8ECEC; --fg:#121011; --muted:#585E62; --line:#D6DCDD; --focus:#05A7E0;
+  --bg:#F3F5F5; --surface:#FFFFFF; --sunk:#E8ECEC; --fg:#121011; --muted:#4B5155; --line:#D6DCDD; --focus:#05A7E0;
   --blend:normal; --panelA:.84; --ok:#2E8B57;
   --shadow:0 1px 0 rgba(1,1,1,.04),0 18px 40px -26px rgba(1,1,1,.45);
   --f-display:"Px Grotesk","Arial Black","Arial Bold",Arial,Helvetica,sans-serif;
@@ -14,15 +14,15 @@
   --ease:cubic-bezier(.2,.8,.2,1);
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#141213; --surface:#201C1D; --sunk:#2A2526; --fg:#F2F0F0; --muted:#ABA5A6; --line:#3A3435;
+  --bg:#141213; --surface:#201C1D; --sunk:#2A2526; --fg:#F2F0F0; --muted:#BEB9BA; --line:#3A3435;
   --blend:normal; --panelA:.8; --ok:#7DCFD8; --shadow:0 1px 0 rgba(0,0,0,.3),0 18px 40px -24px rgba(0,0,0,.8); color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#141213; --surface:#201C1D; --sunk:#2A2526; --fg:#F2F0F0; --muted:#ABA5A6; --line:#3A3435;
+  --bg:#141213; --surface:#201C1D; --sunk:#2A2526; --fg:#F2F0F0; --muted:#BEB9BA; --line:#3A3435;
   --blend:normal; --panelA:.8; --ok:#7DCFD8; --shadow:0 1px 0 rgba(0,0,0,.3),0 18px 40px -24px rgba(0,0,0,.8); color-scheme:dark}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
 a{color:inherit}
 .wrap{max-width:1240px;margin:0 auto}
 .gut{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
@@ -175,6 +175,7 @@ section.blk .wrap{padding-block:44px}
 .lv.l3{background:var(--blue);color:#010101}
 .titem ol{margin:6px 0 0;padding-left:18px;font-size:13px;color:var(--muted)}
 .titem ol li{margin:2px 0}
+.lv.lo{background:transparent;color:var(--fg);border:1.5px solid var(--aqua)}
 .lv.la{background:transparent;color:var(--fg);border:1px solid var(--fg)}
 .titem b{font-size:15px}
 .titem .meta{font-size:13px;color:var(--muted)}
@@ -249,7 +250,91 @@ footer .copy button{background:#fff;color:#010101}
 .staffed span{display:block;color:var(--muted);font-size:13px;margin-top:2px}
 .sdot{width:10px;height:10px;border-radius:50%;background:#F15B29;flex:none;margin-top:5px}
 .sdot.on{background:var(--aqua);box-shadow:0 0 0 4px rgba(125,207,216,.25)}
+.forp{margin:8px 0 0!important;font-size:14px!important;opacity:.95}
+.forp b{font-weight:800}
+.exlink{color:inherit;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.h4n{font-family:var(--f-body);text-transform:none;letter-spacing:0;font-weight:400;font-size:12px;color:var(--muted);margin-left:8px}
+.mlist{display:flex;flex-direction:column}
+.mrow{border-top:1px solid var(--line)}
+.mrow summary{list-style:none;display:grid;grid-template-columns:minmax(0,1fr) auto 18px;gap:10px;align-items:start;padding:10px 0;cursor:pointer}
+.mrow summary::-webkit-details-marker{display:none}
+.mrow summary:hover b{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
+.mrow .mi b{display:block;font-size:15px}
+.mrow .mm{display:block;font-size:13px;color:var(--muted);margin-top:1px}
+.mrow .lv{margin-top:2px}
+.mrow .chev{width:14px;height:14px;margin-top:5px;fill:none;stroke:var(--muted);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+.mrow[open] .chev{transform:rotate(180deg)}
+.mx{padding:0 0 12px;font-size:14px;display:flex;flex-direction:column;gap:6px}
+.mx p{margin:0;color:var(--muted)}
+.mx p.fy{color:var(--fg);background:var(--sunk);border-radius:6px;padding:8px 10px}
+@media (prefers-reduced-motion:no-preference){.mrow[open] .mx{animation:rise .3s var(--ease) both}}
+.exs span{display:inline-flex;align-items:center;gap:6px}
+.exs svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none;opacity:.8}
+.exs span.you{background:var(--yellow);color:#010101;font-weight:700}
+.note span{flex:1;min-width:0}
+.note a{white-space:nowrap}
+.lvkey{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--muted);margin:2px 0 8px}
+.lvkey span{display:flex;align-items:center;gap:8px}
+.lvkey i{font-style:normal;flex:none;min-width:58px;text-align:center}
+.trgrp{font-family:var(--f-display);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:10px 0 2px}
+.titem .what{color:var(--fg);opacity:.85}
+p.matl{color:var(--fg)!important;background:var(--sunk);border-radius:8px;padding:8px 10px;margin-top:6px!important}
+.alts h4{text-transform:none!important;letter-spacing:0!important;font-size:16px!important;color:var(--fg)!important;font-family:var(--f-display)}
+/* simplified result: one plan card, details tucked away */
+.res2{display:flex;flex-direction:column;gap:22px}
+.planbody{padding:22px;display:flex;flex-direction:column;gap:14px}
+.planbody h4{font-family:var(--f-display);font-size:20px;margin:0;letter-spacing:-.01em;text-transform:none}
+.quick{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:980px){.quick{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.quick{grid-template-columns:minmax(0,1fr)}}
+.quick li{display:flex;gap:12px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px;min-width:0}
+.quick .qn{width:34px;height:34px;flex:none;border-radius:50%;display:grid;place-items:center;font-family:var(--f-display);font-size:16px;background:var(--fg);color:var(--bg)}
+.quick li.done .qn{background:var(--aqua);color:#010101}
+.quick b{font-size:17px;display:block}
+.quick p{margin:4px 0 0;font-size:15px;color:var(--muted);line-height:1.45}
+.qa{margin-top:10px;display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.qbtn{display:inline-flex;align-items:center;gap:6px;font:inherit;font-size:15px;font-weight:800;color:#010101;background:var(--yellow);border:0;border-radius:8px;padding:9px 14px;text-decoration:none;cursor:pointer;min-height:44px;white-space:nowrap}
+.qbtn:hover{background:#FFD24D}
+.qmail{font-family:var(--f-mono);font-size:12.5px;color:var(--muted);user-select:all;word-break:break-all}
+.moreinfo{display:flex;flex-direction:column;gap:10px}
+.morehd{margin:0;color:var(--muted);font-size:15px}
+details.more{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:0 18px}
+details.more>summary{list-style:none;cursor:pointer;padding:16px 28px 16px 0;font-weight:800;font-size:17px;position:relative;display:flex;flex-direction:column;gap:2px}
+details.more>summary::-webkit-details-marker{display:none}
+details.more>summary span{font-weight:400;font-size:14px;color:var(--muted)}
+details.more>summary::after{content:"+";position:absolute;right:0;top:12px;font-size:24px;font-weight:400;color:var(--muted)}
+details.more[open]>summary::after{content:"–"}
+details.more[open]{padding-bottom:18px}
+details.more .route{border:0;padding:0;background:none}
+details.more .route>h3,details.more .route>p:first-of-type{display:none}
+details.more .exs{margin-bottom:12px}
+details.more .note{margin-top:8px}
+.alts .altgrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:760px){.alts .altgrid{grid-template-columns:minmax(0,1fr)}}
+.alt span{color:var(--fg)!important;font-weight:700}
+.refine{display:block;padding:12px 16px}
+.refsum{display:flex;align-items:center;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;font-size:15px}
+.refbody{display:flex;flex-wrap:wrap;gap:14px 28px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.refbody fieldset.matf{flex-basis:100%}
+.textsz{font:inherit;font-size:13px;font-weight:700;color:#fff;background:transparent;border:1px solid #5A5556;border-radius:999px;padding:6px 12px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.textsz b{font-size:16px}
+.textsz[aria-pressed="true"]{background:#fff;color:#010101;border-color:#fff}
+html.bigtext main,html.bigtext footer{zoom:1.15}
+@media (max-width:560px){.textsz{padding:6px 10px}}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.gstrip{border-top:1px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:10px}
+.gstrip h5{margin:0;font-size:16px;font-weight:800}
+.gstrip p{margin:0;font-size:14px;color:var(--muted)}
+.ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.gcard{--c:var(--red);background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--c);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.planbody .gcard{background:var(--bg)}
+.gcard b{font-size:15px;line-height:1.25}
+.gcode{font-family:var(--f-mono);font-size:12px;font-weight:700;color:var(--muted)}
+.gm{font-size:13px;color:var(--muted)}
+.gacts{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-top:6px}
+.gbtn{min-height:38px;padding:7px 12px;font-size:14px}
+.libbar{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin-bottom:16px}
+.idea .gl{font-size:13px;margin-top:2px}
 /* ---------- Stella, the REEF guide ---------- */
 .askstella{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:14px;font-weight:800;color:#010101;background:var(--yellow);border:0;border-radius:999px;padding:5px 14px 5px 6px;cursor:pointer;margin-top:4px;align-self:flex-start;transition:transform .2s var(--ease)}
 .askstella:hover{transform:translateY(-2px) rotate(-1deg)}
@@ -314,8 +399,9 @@ footer .copy button{background:#fff;color:#010101}
 #stella.lft .spanel{right:auto;left:0}
 #stella.top .spanel{bottom:auto;top:calc(100% + 8px)}
 @media (prefers-reduced-motion:no-preference){.spanel:not([hidden]){animation:pop .3s var(--ease) both}}
-.shead{display:flex;align-items:center;gap:8px;background:var(--coal);color:#fff;padding:8px 10px}
-.shead span{font-size:12px;opacity:.8}
+.shead{display:flex;align-items:center;gap:8px;background:var(--coal);color:#fff;padding:5px 6px 5px 10px;white-space:nowrap}
+.shead #sClose{margin-left:auto}
+.shead span{font-size:12px;opacity:.8;overflow:hidden;text-overflow:ellipsis}
 .shead button{background:none;border:0;color:#fff;font-size:22px;line-height:1;cursor:pointer;padding:2px 6px}
 .shead .sreset{margin-left:auto;font:inherit;font-size:12px;font-weight:700;border:1px solid #6A6566;border-radius:999px;padding:3px 10px}
 .shead .sreset:hover{border-color:#fff}
@@ -376,6 +462,7 @@ footer .copy button{background:#fff;color:#010101}
   <div class="wrap gut">
     <a class="brand" href="https://seas.harvard.edu/reef-makerspace" target="_blank" rel="noopener"><img src="data:image/png;base64,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" width="333" height="192" alt="REEF Makerspace"><span>Makerspace<br>Pathfinder</span></a>
     <div class="barR">
+      <button type="button" class="textsz" id="textSz" aria-pressed="false"><span aria-hidden="true">A<b>A</b></span> Larger text</button>
       <span class="status" id="status"><i></i><span id="statusTxt">Swipe hours</span></span>
       <div class="dashes" aria-hidden="true"><i style="background:var(--red)"></i><i style="background:var(--yellow)"></i><i style="background:var(--blue)"></i><i style="background:var(--aqua)"></i></div>
     </div>
@@ -423,6 +510,17 @@ footer .copy button{background:#fff;color:#010101}
   </div>
 </section>
 
+<section class="blk" id="library">
+  <div class="wrap gut">
+    <div class="sechead">
+      <div><p class="eyebrow">How-To Library</p><h2>Start with a guided project</h2></div>
+      <p>Printable step-by-step guides for first projects, with the trainings you need and the make files to cut, print or carve.</p>
+    </div>
+    <div class="libbar"><a class="btn line sm" id="libAll" href="" target="_blank" rel="noopener">Open the whole library in Google Drive ↗</a><span class="count" id="libCount"></span></div>
+    <div class="ggrid" id="libGrid"></div>
+  </div>
+</section>
+
 <section class="blk" id="index">
   <div class="wrap gut">
     <div class="sechead">
@@ -431,6 +529,7 @@ footer .copy button{background:#fff;color:#010101}
     </div>
     <div class="idxbar">
       <label class="search" for="idxQ"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span class="sr">Search equipment</span><input id="idxQ" type="search" placeholder="Search: bandsaw, Prusa, 48″…"></label>
+      <button type="button" class="btn line sm" id="idxAll">Show all machines</button>
       <span class="count" id="idxCount"></span>
     </div>
     <div class="rooms" id="rooms"></div>
@@ -452,7 +551,7 @@ footer .copy button{background:#fff;color:#010101}
         <tr><td>Saturday</td><td class="mono">Closed</td></tr>
       </tbody></table>
       <p style="margin-top:12px">The laser room, woodshop and casting room open only when staff are here.</p>
-      <p style="margin-top:6px" id="woodFoot"></p>
+
     </div>
     <div>
       <h4>Questions</h4>
@@ -470,10 +569,11 @@ footer .copy button{background:#fff;color:#010101}
         <li><a href="https://seas.harvard.edu/reef-makerspace/trainings" target="_blank" rel="noopener">Trainings</a></li>
         <li><a href="https://seas.harvard.edu/reef-makerspace/reservations" target="_blank" rel="noopener">Reservations</a></li>
         <li><a href="https://seas.harvard.edu/reef-makerspace/makerspace-facilities" target="_blank" rel="noopener">Facilities</a></li>
+        <li><a href="https://drive.google.com/drive/folders/1-9JzdL3Uuxx5n79dMveVNdVrc_DHI3HE" target="_blank" rel="noopener">How-To Library</a></li>
         <li><a href="https://docs.google.com/spreadsheets/d/1U_fevKGk5dYiHbx9BowZid-l4Cgj2FxcLCqsy9t1Lo0/edit?usp=sharing" target="_blank" rel="noopener">Equipment inventory</a></li>
       </ul>
     </div>
-    <p class="fine"><span>REEF · Reimagining Experiential Education &amp; Fabrication — open to Harvard students, staff and faculty with a valid HUID.</span><span>Recommendations are a starting point. When in doubt, ask REEF staff.</span></p>
+    <p class="fine"><span>REEF · Reimagining Experiential Education &amp; Fabrication — open to Harvard students, staff and faculty with a valid HUID.</span><span>Recommendations are a starting point for your project.</span></p>
   </div>
 </footer>
 
@@ -500,8 +600,8 @@ var LINK = {
 // lvl: 1 = Level I (book online), 2 = Level II (email Joe), 0 = DIY guide, -1 = no listed training
 var TR = {
   laser:    { lvl: 1, n: "Laser Cutting/Engraving", dur: "~45 min", url: "https://calendly.com/d/cn8c-x74-hbz", pre: ["Watch the 5-minute laser video first", "https://drive.google.com/file/d/1CbB8Ht6v3xUqGXy0QFGOiSK_DAxU3Flc/view?usp=drive_link"] },
-  woodintro:{ lvl: 1, n: "Intro to Woodshop", dur: "~45 min", url: "https://calendly.com/d/ck9z-w8h-y2s", note: "Vertical bandsaw, belt/disc sander, scroll saw, compound miter saw." },
-  wood2:    { lvl: 2, n: "Woodshop Level II", note: "Cabinet router, drill press, panel saw.", req: "Intro to Woodshop" },
+  woodintro:{ lvl: 1, n: "Intro to Woodshop", dur: "~45 min", url: "https://calendly.com/d/ck9z-w8h-y2s", what: "For basic construction: cutting and shaping parts on the vertical bandsaw, miter saw, scroll saw and belt/disc sander." },
+  wood2:    { lvl: 2, n: "Woodshop Level II", what: "For more detailed work: precise holes on the drill press, breaking down full sheets on the panel saw, and edges and joints on the router table.", req: "Intro to Woodshop" },
   cnc:      { lvl: 2, n: "4′ × 4′ CNC Router", req: "Intro to Woodshop", extra: [["CNC router guide", "https://docs.google.com/document/d/1-Jx1gESWgBOmprxID7w4DOHviPNoWO9WnWQh1wt-OZ0/edit?usp=sharing"], ["Intro to Carbide Create", "https://www.youtube.com/watch?v=8rsL73WGBbo"], ["Fusion 360 3D machining", "https://www.youtube.com/watch?v=G3h4Oe2i3Xo"]] },
   carvera:  { lvl: 2, n: "Desktop CNC (Carvera Air)", note: "Uses Fusion 360 for design and toolpaths.", extra: [["Intro to Carvera machining with Fusion 360", "https://www.youtube.com/watch?v=kDUTNGHICMQ"]] },
   casting:  { lvl: 1, n: "Casting Room Orientation + Spray Booth", dur: "~5 min", url: "https://calendly.com/d/ctt9-z65-7dc" },
@@ -516,11 +616,13 @@ var TR = {
   pop3:     { lvl: 0, n: "Pop 3 3D Scanner guide", url: "https://docs.google.com/document/d/14QcTDwcKZJQcq0bcO56PGj-UlopPaH1NwUNreqO8qQk/edit?tab=t.0#heading=h.uypm87mrnfkh", note: "Email Joe to reserve it. The scanner stays in the REEF.", email: true },
   solder:   { lvl: 0, n: "Soldering guide", url: "https://docs.google.com/document/d/17CZyJgYk4MDbjfkPI0bXsNaFJIXJfgoDFQVR7a2VLyQ/edit?tab=t.0#heading=h.8eezjsu1tb8a", note: "Self-serve once you have swipe access. Your EHS online course covers soldering safety." },
   photores: { lvl: 5, n: "Photo booth reservation" },
+  vrcheck:  { lvl: 7, n: "VR headset checkout", note: "Email Joe to check out a Meta Quest 3.", email: true },
+  open:     { lvl: 6, n: "No training needed", note: "Open to use once you have swipe access." },
   ask:      { lvl: -1, n: "No training listed online", note: "Ask REEF staff on the floor, or email Joe before you start." }
 };
 var RES = {
   laser24: ["Laser Fusion · 24″ × 24″", "https://calendly.com/d/cqwr-962-gqn"],
-  laserPro: ["Laser Fusion Pro · 48″ × 36″", "https://calendly.com/d/cnkr-8nh-g8b", "Needs extra onboarding the first time — check with staff."],
+  laserPro: ["Laser Fusion Pro · 48″ × 36″", "https://calendly.com/d/cnkr-8nh-g8b", "Needs extra onboarding the first time. Email staff before your first booking."],
   wood: ["Wood Shop", "https://calendly.com/d/cqyc-gmf-62g"],
   casting: ["Casting Room & Spray Booth", "https://calendly.com/d/cnk3-xwd-hw2"],
   embroid: ["Embroidery Machine", "https://calendly.com/d/dvrm-zvt-jbj"],
@@ -530,7 +632,7 @@ var MATS = [["any", "Not sure yet"], ["wood", "Wood"], ["plastic", "Acrylic & pl
 var SIZES = [["s", "Fits in a hand", "under 6″"], ["m", "Up to ~12″", "≈ 300 mm"], ["l", "Bigger", "over 12″"]];
 var SUBM = [["any", "Not sure yet"], ["poly", "Polyester / poly blend"], ["acrylic", "Acrylic / plastic"], ["treated", "Sublimation-treated blank"], ["cotton", "Cotton"]];
 var EXP = [["new", "New to the REEF"], ["member", "I have swipe access"]];
-var SR = { s: 0, m: 1, l: 2 };
+var SR = { s: 0, m: 1, l: 2, x: 3 };
 
 /* Workflows. size = largest size class it handles. alts = other routes worth showing. */
 var WF = {
@@ -538,16 +640,19 @@ var WF = {
     why: "Fast, precise cutting and engraving on flat sheet material. The usual first stop for signs, press-fit boxes, stencils and jewelry.",
     m: [["Laser cutter", "Epilog Fusion Edge · 60 W · 24″ × 24″ bed", "laser"], ["Laser cutter", "Epilog Fusion Pro · 100 W · 24″ × 24″ bed", "laser"], ["Large laser cutter", "Epilog Fusion Pro · 120 W · 48″ × 36″ bed", "laser", "Extra onboarding the first time", "y"], ["Metal-marking laser", "xTool F2 Ultra · 60 W MOPA + 40 W diode · 8.6″ × 8.6″", "laser", "Engraves metal · for experienced Epilog users", "a"]],
     mats: ["wood", "plastic", "paper", "fabric", "metal"], size: "l", tr: ["laser"], res: ["laser24", "laserPro"],
+    sizeOpts: [["m", "Up to 24″ × 24″", "Fits the Fusion Edge or Fusion Pro, the two most used lasers"], ["l", "Up to 48″ × 36″", "The large Fusion Pro, extra onboarding the first time"], ["x", "Bigger than 48″ × 36″"]],
     sw: "a 2D vector file (SVG, PDF, AI or DXF) from Illustrator, Inkscape or a Fusion 360 sketch",
-    make: ["Draw your design as vectors: outlines to cut, filled shapes or images to engrave.", "Bring flat stock that fits the bed: 24″ × 24″ on the Fusion Edge and Fusion Pro, up to 48″ × 36″ on the large Fusion Pro. Metal engraving goes on the xTool F2 Ultra (8.6″ × 8.6″).", "Never laser PVC or vinyl: they release chlorine gas. Ask staff if you’re unsure about a material."],
+    make: ["Draw your design as vectors: outlines to cut, filled shapes or images to engrave.", "Bring flat stock that fits the bed: 24″ × 24″ on the Fusion Edge and Fusion Pro, up to 48″ × 36″ on the large Fusion Pro. Metal engraving goes on the xTool F2 Ultra (8.6″ × 8.6″).", "Never laser PVC or vinyl: they release chlorine gas."],
+    matl: "Common laser-safe sheets are plywood, MDF, cast acrylic, cardboard and paper. Never PVC or vinyl. Not sure about a material? Email staff at jkile@seas.harvard.edu before you bring it in. Some materials aren’t allowed in the REEF, like LiPo batteries and certain mold-making materials.",
     ex: ["Lab signs", "Press-fit boxes", "Earrings", "Ornaments", "Name tags", "Coasters"], alts: ["vinyl", "cnc", "carvera"] },
   print: { t: "3D print", sub: "Prototypes, mounts, models", n: "FDM 3D printers", c: "blue", room: "FDM 3D Printing",
     why: "Turns a CAD model into a plastic part layer by layer. Great for prototypes, enclosures, brackets and models.",
     m: [["FDM 3D printer", "Prusa MK4S · 210 × 220 × 250 mm", "fdm", "No cost · follow the 3D printing policy", "a"], ["Large FDM 3D printer", "Prusa Core One L · 300 × 300 × 300 mm", "fdm", "Bring your own filament", "y"], ["Multi-material 3D printer", "Snapmaker U1 · 270 × 270 × 270 mm", "fdm", "Needs staff approval", "r"]],
     mats: ["plastic"], size: "m", split: true, tr: ["fdm", "policy3d"], res: [],
-    book: "No reservations: drop in during swipe hours. The MK4S printers are first come, first served. Ask staff before using the Snapmaker U1.",
+    book: "No reservations: drop in during swipe hours. The MK4S printers are first come, first served. The Snapmaker U1 needs staff approval first.",
     sw: "an STL or 3MF from your CAD tool, sliced in PrusaSlicer",
     make: ["Model the part in CAD (Fusion 360, Onshape, Tinkercad…) and export STL or 3MF.", "Slice it in PrusaSlicer. The MK4S prints in REEF-supplied PLA at no cost; for the Core One L, bring your own filament.", "Copy the G-code to a USB drive, start the print, watch the first 5 minutes, and label your print."],
+    matl: "PLA is provided on the Prusa MK4S at no cost. For the Core One L, bring your own filament.",
     ex: ["Phone stands", "Enclosures", "Brackets", "Replacement knobs", "Architectural models"], alts: ["carvera", "scan", "casting"] },
   scan: { t: "3D scan", sub: "Capture a real object", n: "3D scanners", c: "aqua", room: "AR/VR",
     why: "Captures a real object as a 3D mesh you can measure, remix, 3D print or bring into VR.",
@@ -559,10 +664,11 @@ var WF = {
     exH: "Good for", ex: ["Museum objects", "Body-fit parts", "Reverse engineering", "Digital archives"], alts: ["print", "vr"] },
   cnc: { t: "CNC carve", sub: "Big wood & foam parts", n: "CNC router", c: "yellow", room: "Woodshop",
     why: "Cuts and carves full sheets of wood, plastic and foam on a 4′ × 4′ bed. For furniture parts, large signs, reliefs and molds.",
-    m: [["CNC router", "Carbide 3D Shapeoko 5 Pro · 48″ × 48″ bed", "cnc"], ["Handheld CNC router", "Shaper Origin · 720 W", "ask"]],
-    mats: ["wood", "plastic", "foam"], size: "l", tr: ["woodintro", "cnc"], res: ["wood"],
+    m: [["CNC router", "Carbide 3D Shapeoko 5 Pro · 48″ × 48″ bed", "cnc"], ["Handheld CNC router", "Shaper Origin · 720 W", "wood2"]],
+    mats: ["wood", "plastic", "foam"], size: "x", tr: ["woodintro", "cnc"], res: ["wood"],
     sw: "Carbide Create for 2D toolpaths, Fusion 360 for 3D",
     make: ["Draw 2D designs in Carbide Create, or model in Fusion 360 for 3D carving.", "Set stock size and zero, add toolpaths, and simulate before saving G-code.", "Hold stock down with composite brad nails in waste areas, set zero, and stay with the machine."],
+    matl: "Wood and plastic only, and no treated lumber, cedar or tropical woods. Not sure about a material? Email staff at jkile@seas.harvard.edu before you bring it in. Some materials aren’t allowed in the REEF, like LiPo batteries and certain mold-making materials.",
     ex: ["Furniture parts", "Large signs", "Foam molds", "Relief carvings", "Plywood panels"], alts: ["wood", "laser", "carvera"] },
   carvera: { t: "Mill metal & PCBs", sub: "Precise small parts", n: "Desktop CNC mill", c: "blue", room: "Electronics",
     why: "An enclosed desktop mill for small, precise parts. The REEF machine for aluminum, brass and copper, and for milling circuit boards.",
@@ -574,9 +680,10 @@ var WF = {
   wood: { t: "Woodworking", sub: "Furniture, frames, builds", n: "Woodshop", c: "yellow", room: "Woodshop",
     why: "Saws, sanders and routers for building with solid wood and sheet goods.",
     m: [["Vertical bandsaw", "Grizzly G0513X2BF · 17″ · 2 HP", "woodintro"], ["Compound miter saw", "Makita LS1219L · 12″ blade", "woodintro"], ["Scroll saw", "DeWalt DW788 · 20″ arm", "woodintro"], ["Belt/disc sander", "South Bend SB1093 · 6″ × 24″ belt · 12″ disc", "woodintro"], ["Drill press", "Nova Voyager DVR 58000 · 18″ swing", "wood2"], ["Panel saw", "Saw Trax Accu-Square · Makita 5007F", "wood2"], ["Cabinet router table", "Bosch RA1171", "wood2"]],
-    mats: ["wood"], size: "l", tr: ["woodintro", "wood2"], res: ["wood"],
+    mats: ["wood"], size: "x", tr: ["woodintro", "wood2"], trOpt: ["wood2"], res: ["wood"],
     sw: "a sketch or cut list",
     make: ["Sketch your parts and list the sizes you need before you come in.", "Wear closed-toe shoes and eye protection, and tie back long hair.", "Reserve the woodshop so a staff member can let you in."],
+    matl: "You don’t need to bring material to Intro to Woodshop. For your project, untreated pine, poplar, maple, oak, walnut, birch and plywood are all fine; skip pressure-treated lumber, cedar and tropical species. Not sure about a material? Email staff at jkile@seas.harvard.edu before you bring it in. Some materials aren’t allowed in the REEF, like LiPo batteries and certain mold-making materials.",
     ex: ["Shelves", "Picture frames", "Cutting boards", "Stools", "Display stands"], alts: ["cnc", "laser"] },
   vinyl: { t: "Stickers & vinyl", sub: "Decals, labels, cards", n: "Cricut + sticker printer", c: "aqua", room: "Fabric Arts",
     why: "A craft cutter for vinyl, paper, cardstock and thin fabric, plus a sticker printer for full-color stickers.",
@@ -592,20 +699,22 @@ var WF = {
     mats: ["fabric"], noMat: true, subMat: true, size: "m", tr: ["dyesub", "heat"], res: [],
     sw: "any image editor. Print your artwork mirrored",
     make: ["Print your artwork mirrored on the Epson dye-sub printer.", "Use polyester, a poly blend, a plastic like acrylic, or a sublimation-treated blank. Cotton won’t work with our setup.", "Press it on the 16″ × 20″ heat press."],
+    matl: "Bring your own polyester, poly-blend, acrylic or sublimation-treated blank. Cotton won’t work.",
     ex: ["Polyester shirts", "Tote bags", "Banners", "Acrylic photo panels"], alts: ["sewing", "vinyl"] },
   sewing: { t: "Sew & embroider", sub: "Patches, costumes, plushies", n: "Fabric arts", c: "aqua", room: "Fabric Arts",
     why: "Sewing, serging and machine embroidery for fabric projects.",
-    m: [["Embroidery machine", "Brother PE900", "embroid"], ["Sewing machine", "Bernina B330", "ask"], ["Serger / overlock", "Bernina L450", "ask"]],
-    mats: ["fabric"], size: "l", tr: ["embroid", "ask"], res: ["embroid"],
+    m: [["Embroidery machine", "Brother PE900", "embroid"], ["Sewing machine", "Bernina B330", "open"], ["Serger / overlock", "Bernina L450", "open"]],
+    mats: ["fabric"], size: "l", tr: ["embroid"], res: ["embroid"],
     sw: "an embroidery file for the Brother PE900, or a paper pattern for sewing",
-    make: ["Embroidery: take the 45-minute training, then reserve the machine.", "Sewing machine and serger: ask staff before your first project.", "Bring your pattern and plan your cuts before you start."],
+    make: ["Embroidery: take the 45-minute training, then reserve the machine.", "The sewing machine and serger are open to use once you have swipe access.", "Bring your pattern and plan your cuts before you start."],
     ex: ["Patches", "Costumes", "Tote bags", "Plushies"], alts: ["sublimation", "vinyl", "laser"] },
   casting: { t: "Form, mold & paint", sub: "Thermoform, spray booth", n: "Casting Room", c: "yellow", room: "Casting Room",
     why: "Vacuum forming, a ventilated spray booth, ovens and a fume hood for forming plastic, finishing parts and making molds.",
     m: [["Vacuum former", "Formech 686 · large format", "thermo"], ["Spray booth", "Spray Systems · 60″ × 36″ × 36″", "casting"], ["Curing oven", "VWR horizontal airflow oven", "casting"], ["UV crosslinker", "UVP CL-1000", "casting"], ["Fume hood", "Mott 74A1040", "casting"]],
-    mats: ["plastic", "foam", "wood"], size: "m", tr: ["casting", "thermo"], res: ["casting"],
+    mats: ["plastic", "foam", "wood"], size: "m", tr: ["casting", "thermo"], trOpt: ["thermo"], res: ["casting"],
     sw: "a mold or buck: 3D printed, CNC carved or found",
     make: ["Start with the ~5-minute Casting Room orientation. It covers safety and the spray booth.", "Vacuum forming on the Formech is a Level II training.", "The orientation doesn’t cover silicone or urethane casting, and the REEF isn’t a foundry (no metal casting)."],
+    matl: "Some mold-making materials aren’t allowed in the REEF. Email staff at jkile@seas.harvard.edu before you bring one in.",
     ex: ["Thermoformed trays", "Packaging", "Spray-painted parts", "Molds"], alts: ["print", "cnc"] },
   electronics: { t: "Solder & test", sub: "Circuits, sensors, repair", n: "Electronics bench", c: "blue", room: "Electronics",
     why: "Soldering and rework stations plus bench test gear for building and debugging circuits.",
@@ -613,30 +722,32 @@ var WF = {
     mats: ["electronics", "metal"], size: "m", tr: ["solder"], res: [],
     sw: "your schematic or a kit’s instructions",
     make: ["Read the soldering guide before your first joint.", "Use the fume snorkel while you solder.", "Power up from the bench supply and check with the multimeter or scope before you plug in anything expensive."],
+    matl: "LiPo batteries aren’t allowed in the REEF. Not sure about a part or material? Email staff at jkile@seas.harvard.edu before you bring it in.",
     ex: ["Arduino builds", "Sensor rigs", "LED projects", "Repairs"], alts: ["carvera", "print"] },
   bike: { t: "Fix a bike", sub: "Repair stand & tools", n: "Bike & board repair", c: "red", room: "Bicycle Tooling",
     why: "A repair stand, floor pump and hand tools for keeping bikes and skateboards rolling.",
-    m: [["Repair stand", "Bike Hand YC-100BH", "ask"], ["Floor pump", "Schwinn", "ask"], ["Bike hand tools", "Assorted", "ask"]],
-    mats: ["any"], noMat: true, noSize: true, size: "l", tr: ["ask"], res: [],
+    m: [["Repair stand", "Bike Hand YC-100BH", "open"], ["Floor pump", "Schwinn", "open"], ["Bike hand tools", "Assorted", "open"]],
+    mats: ["any"], noMat: true, noSize: true, size: "l", tr: ["open"], res: [],
     sw: "no files needed",
-    make: ["Clamp the bike in the repair stand.", "Hand tools and the pump live at the bike station.", "Ask staff if you can’t find a tool."],
+    make: ["Clamp the bike in the repair stand.", "Hand tools and the floor pump live at the bike station."],
     exH: "Common fixes", ex: ["Patching or replacing a tube", "Adjusting brakes", "Cleaning and lubing a chain", "Tightening skateboard trucks"], alts: [] },
   photo: { t: "Photograph it", sub: "Portfolio-ready shots", n: "Photo booth", c: "aqua", room: "Photobooth",
     why: "A small studio for documenting projects: camera, lights and seamless backdrops.",
     m: [["Camera", "Sony a6400", "photores"], ["Studio lighting", "Bi-color LED", "photores"], ["Backdrops", "Matte paper · white, green, black", "photores"], ["Tripods", "Assorted", "photores"]],
-    mats: ["any"], noMat: true, noSize: true, size: "l", tr: ["ask"], res: ["photo"],
+    mats: ["any"], noMat: true, noSize: true, size: "l", tr: ["open"], res: ["photo"],
     sw: "a finished project and a shot list",
     make: ["Reserve the photo booth.", "Pick a white, green or black backdrop and set up the LED lights.", "Shoot on a tripod for sharp, consistent portfolio images."],
     exH: "Good for", ex: ["Portfolio shots", "Design Fair photos", "Product shots", "Process documentation"], alts: [] },
   vr: { t: "Try VR / AR", sub: "Meta Quest 3", n: "VR / AR headset", c: "blue", room: "AR/VR",
     why: "A Meta Quest 3 for exploring immersive design, and a natural next step after 3D scanning.",
-    m: [["VR / AR headset", "Meta Quest 3", "ask"]],
-    mats: ["any"], noMat: true, noSize: true, size: "l", tr: ["ask"], res: [],
+    m: [["VR / AR headset", "Meta Quest 3", "vrcheck"]],
+    mats: ["any"], noMat: true, noSize: true, size: "l", tr: ["vrcheck"], res: [],
+    book: "Joe will reply to set up your checkout time.",
     sw: "your 3D models or scans",
-    make: ["Ask staff to use the Meta Quest 3 in the REEF.", "Pair it with a 3D scan to walk around a real object at full scale."],
+    make: ["Pair it with a 3D scan to walk around a real object at full scale."],
     exH: "Good for", ex: ["Immersive design reviews", "Scanned objects in VR", "AR prototypes"], alts: ["scan"] }
 };
-WF.offsite = { t: "Torch & hot work", n: "Not available at REEF", c: "red", room: "Off site", offsite: true, noMat: true, noSize: true, mats: ["any"], size: "l", tr: ["ask"], res: [], alts: [], m: [], ex: [], make: [], sw: "" };
+WF.offsite = { t: "Torch & hot work", n: "Not available at REEF", c: "red", room: "Off site", offsite: true, noMat: true, noSize: true, mats: ["any"], size: "l", tr: ["open"], res: [], alts: [], m: [], ex: [], make: [], sw: "" };
 var ORDER = ["laser", "print", "scan", "cnc", "carvera", "wood", "vinyl", "sublimation", "sewing", "casting", "electronics", "bike", "photo", "vr"];
 var ICON = {
   laser: '<path d="M12 2v7M8.5 9h7L12 14z"/><path d="M3 21l4-4 4 4 4-4 4 4"/>',
@@ -659,6 +770,8 @@ var KW = [
   /* open flame / hot work: REEF has no hot work permit */
   [/torch|braz(e|ing)|\bweld|silver ?solder|solder\w*\s+(an?\s+|my\s+|some\s+|the\s+)?(jewel|ring|silver|chain|pendant|bracelet|earring)|jewel\w*\s+solder|\bforg(e|ing)\b|blacksmith|metal casting|cast(ing)? (bronze|alumin\w*|metal|brass|silver)|foundry/, { offsite: 9 }],
   [/award|plaque|trophy|dog ?tag|metal (tag|card|sign)/, { laser: 3 }],
+  [/tiny ?house|doll ?house|miniature (furniture|house|room)|diorama|model (house|building)|architectural model/, { laser: 6, wood: 2, print: 1 }],
+  [/bird ?house|bird ?feeder|planter box|nesting box/, { wood: 7, laser: 1 }],
   /* action verbs outweigh nouns: "sew a shirt" is sewing, "print a part" is 3D printing */
   [/\bsew(s|ing|n)?\b|embroider/, { sewing: 5 }],
   [/3d[- ]?print|\bprint(s|ing|ed)?\s+(an?|my|some|the|our)?\s*(\w+\s)?(parts?|models?|prototypes?|pieces?|figurines?|cases?|brackets?|holders?|mounts?|minis?)\b/, { print: 5 }],
@@ -704,32 +817,157 @@ function access(it) {
     if (/Bandsaw|Belt\/Disc|Scroll|Miter/.test(n)) return ["woodintro", "wood"];
     if (/Cabinet|Drill Press|Panel/.test(n)) return ["wood2", "wood"];
     if (n === "CNC Router") return ["cnc", "cnc"];
-    return ["ask", /Shaper/.test(m) ? "cnc" : "wood"];
+    return ["wood2", /Shaper/.test(m) ? "cnc" : "wood"];
   }
-  if (it.r === "Fabric Arts") return /Embroidery/.test(n) ? ["embroid", "sewing"] : /Cricut/.test(m) ? ["cricut", "vinyl"] : ["ask", "sewing"];
+  if (it.r === "Fabric Arts") return /Embroidery/.test(n) ? ["embroid", "sewing"] : /Cricut/.test(m) ? ["cricut", "vinyl"] : ["open", "sewing"];
   if (it.r === "Casting Room") return /Vacuum/.test(n) ? ["thermo", "casting"] : ["casting", "casting"];
   if (it.r === "Dye Sublimation") return /Heat Press/.test(n) ? ["heat", "sublimation"] : ["dyesub", "sublimation"];
-  if (it.r === "AR/VR") return /Quest/.test(m) ? ["ask", "vr"] : ["scanappt", "scan"];
+  if (it.r === "AR/VR") return /Quest/.test(m) ? ["vrcheck", "vr"] : ["scanappt", "scan"];
   if (it.r === "Electronics") return /Carvera/.test(m) ? ["carvera", "carvera"] : ["solder", "electronics"];
-  if (it.r === "Photobooth") return ["ask", "photo"];
-  return ["ask", ROOMS[it.r] ? ROOMS[it.r][1] : "laser"];
+  if (it.r === "Photobooth") return ["photores", "photo"];
+  return ["open", ROOMS[it.r] ? ROOMS[it.r][1] : "laser"];
 }
 
+/* What each machine does, and a short "use it to…" phrase that ties it to the visitor's project. */
+var MUSE = {
+  "Laser cutter": ["A focused laser beam cuts and engraves flat sheets, following your vector file exactly.", "cut out flat parts and engrave details"],
+  "Large laser cutter": ["The same Epilog laser with a 48″ × 36″ bed for big sheets. Extra onboarding the first time.", "cut large panels in one piece"],
+  "Metal-marking laser": ["A fiber laser that marks metal. For experienced users who have worked on the Epilog lasers.", "mark metal parts, once you’re comfortable on the Epilogs"],
+  "FDM 3D printer": ["Melts PLA plastic and builds your CAD model layer by layer. PLA is provided at no cost.", "print custom 3D shapes"],
+  "Large FDM 3D printer": ["A bigger build volume (300 mm cube) for large parts. Bring your own filament.", "print larger parts, or several parts at once"],
+  "Multi-material 3D printer": ["Prints several colors or materials in one job. Needs staff approval.", "print multi-color parts"],
+  "Handheld 3D scanner": ["Captures the shape of a real object as a 3D mesh you can edit, print or view in VR.", "capture an existing object in 3D"],
+  "CNC router": ["A computer-controlled router that cuts and carves full sheets on a 4′ × 4′ bed.", "cut big parts or carve 3D shapes"],
+  "Handheld CNC router": ["A handheld router that keeps itself on your digital path.", "rout precise shapes on large or awkward pieces"],
+  "Desktop CNC mill": ["A small enclosed mill for precise parts in aluminum, brass, plastic, wood and circuit boards.", "mill small, precise parts"],
+  "Vertical bandsaw": ["A continuous blade for cutting curves and rough shapes in wood and plastic.", "cut curves and rough shapes"],
+  "Compound miter saw": ["Makes clean straight or angled cuts across boards.", "cut boards to length at exact angles"],
+  "Scroll saw": ["A fine, thin blade for tight curves and small, delicate shapes.", "cut tight curves and small, detailed pieces"],
+  "Belt/disc sander": ["Sands and shapes edges, flat or rounded.", "smooth and shape edges"],
+  "Drill press": ["Drills straight, accurate holes to a set depth.", "drill precise holes"],
+  "Panel saw": ["Breaks down full sheets of plywood into manageable pieces.", "cut large sheets down to size"],
+  "Cabinet router table": ["A router mounted under a table for shaping edges, grooves and joints.", "shape edges and cut grooves and joints"],
+  "Craft cutter": ["Cuts vinyl, paper, cardstock and thin fabric with a small blade.", "cut stickers, decals and paper parts"],
+  "Dye-sub printer": ["Prints your artwork with sublimation ink onto transfer paper.", "print your design for transfer"],
+  "Heat press": ["Presses the printed transfer into polyester or treated blanks with heat.", "transfer your design onto the blank"],
+  "Embroidery machine": ["Stitches digital designs onto fabric automatically.", "stitch logos, names and patches"],
+  "Sewing machine": ["Straight and zigzag stitching for fabric projects.", "sew seams and hems"],
+  "Serger / overlock": ["Trims and finishes fabric edges in one pass.", "give seams a clean, stretchy finish"],
+  "Vacuum former": ["Heats a plastic sheet and pulls it tight over a mold.", "form trays, shells and packaging"],
+  "Spray booth": ["A ventilated booth for spray paint and finishes.", "paint and finish parts safely"],
+  "Curing oven": ["A controlled oven for curing and drying.", "cure finishes and materials"],
+  "UV crosslinker": ["A small UV chamber for curing UV-sensitive materials.", "cure UV resins and coatings"],
+  "Fume hood": ["A ventilated workspace for working with fumes.", "work safely with fumes"],
+  "Soldering + hot air rework": ["A soldering iron and hot-air station for joining and reworking electronics.", "solder and repair circuits"],
+  "DC power supply": ["Powers circuits at an exact voltage and current.", "power your circuit safely while testing"],
+  "Multimeter": ["Measures voltage, current and resistance.", "check connections and readings"],
+  "Oscilloscope": ["Shows how signals change over time.", "see and debug signals"],
+  "Waveform generator": ["Generates test signals.", "feed test signals into your circuit"],
+  "Digital microscope": ["Magnifies small parts and solder joints.", "inspect tiny parts and joints"],
+  "Repair stand": ["Holds a bike off the ground while you work.", "work on your bike at a comfortable height"],
+  "Floor pump": ["Inflates tires to the right pressure.", "inflate tires"],
+  "Bike hand tools": ["Wrenches, tire levers and more for common fixes.", "make common repairs"],
+  "Camera": ["A mirrorless camera for sharp photos and video.", "shoot clean photos of your work"],
+  "Studio lighting": ["Adjustable bi-color LED lights.", "light your project evenly"],
+  "Backdrops": ["Seamless matte paper in white, green and black.", "give your shots a clean background"],
+  "Tripods": ["Keeps the camera steady.", "keep shots sharp and consistent"],
+  "VR / AR headset": ["A standalone Meta Quest 3 headset.", "view your models at full scale"]
+};
+/* "Not quite right?" questions that lead to each alternative route */
+var ASKQ = {
+  laser: "Have a flat design you want cut precisely?", print: "Need a custom 3D shape?", scan: "Want to copy a real object?",
+  cnc: "Working with big sheets, or carving in 3D?", carvera: "Need metal or very precise small parts?", wood: "Building by hand with solid wood?",
+  vinyl: "Is it stickers, decals or paper?", sublimation: "Printing artwork onto polyester?", sewing: "Working with fabric and thread?",
+  casting: "Forming plastic or spray painting?", electronics: "Adding lights, sensors or circuits?", vr: "Want to see it in VR?", bike: "Fixing a bike?", photo: "Want photos of the finished piece?"
+};
+/* small line icons for the "People make" examples (keyword → icon); falls back to the route's icon */
+var EXI = [
+  [/sign|plate|panel/, '<rect x="3" y="5" width="18" height="10" rx="1"/><path d="M12 15v6"/>'],
+  [/box|enclos|packag/, '<path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4M12 11v10"/>'],
+  [/earring|jewel|ornament/, '<path d="M12 2v4"/><path d="M12 6l5 8-5 8-5-8z"/>'],
+  [/tag|label/, '<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/>'],
+  [/coaster|knob/, '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/>'],
+  [/phone|stand/, '<rect x="7" y="2" width="10" height="16" rx="2"/><path d="M5 22h14"/>'],
+  [/bracket|part/, '<path d="M5 3v16h16"/><path d="M5 13h6v6"/>'],
+  [/model|house|dollhouse/, '<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>'],
+  [/museum|archive|fossil/, '<path d="M3 9l9-6 9 6z"/><path d="M5 9v9M10 9v9M14 9v9M19 9v9M3 21h18"/>'],
+  [/furniture|stool|chair/, '<path d="M7 3v9h10V3"/><path d="M6 12h12M7 12v9M17 12v9"/>'],
+  [/shel/, '<path d="M4 3v18M20 3v18M4 8h16M4 14h16M4 20h16"/>'],
+  [/frame|photo|portfolio|shot/, '<rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 16l5-5 4 4 3-3 6 6"/>'],
+  [/board/, '<rect x="4" y="3" width="16" height="18" rx="3"/><circle cx="12" cy="7" r="1.4"/>'],
+  [/sticker|decal|card/, '<path d="M4 4h16v10l-6 6H4z"/><path d="M14 20v-6h6"/>'],
+  [/shirt|costume|jersey/, '<path d="M8 3l4 2 4-2 5 4-3 3-2-1v12H8V9l-2 1-3-3z"/>'],
+  [/bag|tote/, '<path d="M5 8h14l-1 13H6z"/><path d="M9 8V6a3 3 0 016 0v2"/>'],
+  [/banner|flag/, '<path d="M5 21V3"/><path d="M5 4h13l-3 4 3 4H5"/>'],
+  [/patch|plush/, '<path d="M12 3l2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.8z"/>'],
+  [/tray|mold/, '<path d="M3 9h18l-2 9H5z"/><path d="M7 9V6h10v3"/>'],
+  [/spray|paint/, '<path d="M8 9h8v12H8z"/><path d="M10 9V5h4v4M17 4h.01M19 6h.01M19 2h.01"/>'],
+  [/pcb|arduino|sensor|circuit/, '<rect x="6" y="6" width="12" height="12" rx="1.5"/><path d="M9.5 2v4M14.5 2v4M9.5 18v4M14.5 18v4M2 9.5h4M2 14.5h4M18 9.5h4M18 14.5h4"/>'],
+  [/led|light/, '<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 00-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0012 3z"/>'],
+  [/repair|brake|chain|tube|truck|engineer/, '<path d="M14.7 6.3a4 4 0 00-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 005.4-5.4l-2.5 2.5-2.5-.5-.5-2.5z"/>'],
+  [/relief|carv/, '<path d="M3 20l6-9 4 6 3-4 5 7z"/>'],
+  [/vr|design review|scanned|ar proto/, '<path d="M3 8h18v9h-6l-3-3-3 3H3z"/>'],
+  [/body|fit/, '<path d="M12 4a2 2 0 110 .01M8 21l2-7-3-4 5-2 5 2-3 4 2 7"/>']
+];
+function exIcon(txt, wf) { var t = txt.toLowerCase(); for (var i = 0; i < EXI.length; i++) if (EXI[i][0].test(t)) return EXI[i][1]; return ICON[wf] || ""; }
+function projPhrase(p) { if (!p) return ""; p = p.trim().replace(/[.!?]+$/, ""); p = p.replace(/^(a|an|the|my|our|some|make|making|build|building|i want to make|i want to build)\s+/i, ""); p = p.replace(/^(a|an|the|my|our|some)\s+/i, ""); var core = p.split(/\s+(?:with|for|that|using|out of|made of|to)\s+/i)[0]; if (core.length >= 4) p = core; if (p.length > 46) p = p.slice(0, 44).replace(/\s+\S*$/, "") + "…"; return p; }
+
+/* example projects shown when the visitor describes one of these */
+var PROJ_EX = [
+  [/tiny ?house|doll ?house/, "laser", "See an example: a laser-cut tiny house", "https://jemtoy.com/tiny-doll-house-instructions/"],
+  [/bird ?house/, "wood", "See an example: building a birdhouse", "https://www.homedepot.com/c/ah/how-to-build-a-birdhouse/9ba683603be9fa5395fab9014557d28e"]
+];
+function projEx(top) { var p = (S.project || "").toLowerCase(); for (var i = 0; i < PROJ_EX.length; i++) if (PROJ_EX[i][0].test(p) && PROJ_EX[i][1] === top) return PROJ_EX[i]; return null; }
+/* REEF How-To Library: printable step-by-step guides on Google Drive (anyone with the link can view).
+   To update a guide, use Drive's "Manage versions" on the PDF so these links keep working. */
+var LIBRARY = "https://drive.google.com/drive/folders/1-9JzdL3Uuxx5n79dMveVNdVrc_DHI3HE";
+var GUIDES = [
+  { c: "LAS-101", n: "Laser-Cut Tiny House", wf: "laser", pdf: "1Qj9kHMpyI4RIrJrlVePZxmHpa3N3MICR", dir: "1QC2b-WQ18X9loYBeNMn8p_hOIWnpN4gM", files: "SVG cut file", kw: /tiny ?house|doll ?house|miniature (house|room)/, idea: "A laser-cut tiny house" },
+  { c: "LAS-102", n: "Press-Fit Box", wf: "laser", pdf: "1ocwQkPMU4Taqn8mKQmrlMOrNgHvaWKA0", dir: "1rGe9AV13dYch6XGhQKD9eYb63OSBoah7", files: "SVG cut file", kw: /press[- ]?fit|finger[- ]?joint|\bbox(es)?\b/, idea: "A press-fit box" },
+  { c: "LAS-103", n: "Engraved Coasters", wf: "laser", pdf: "1Yc5STNLs-vVyF3eELXLNle-hab98wFgq", dir: "11e20pV0kFess0biIkrvmwS6QbXSa6BVm", files: "SVG template", kw: /coaster/, idea: "Engraved wooden coasters" },
+  { c: "LAS-104", n: "Acrylic Keychain & Earrings", wf: "laser", pdf: "1OOfqO-MqtuUCGvtTdsJsxmDVTH5AtRx2", dir: "1hTVOIm44c9OmtB5qDviHwUlXgNBx8FqA", files: "SVG template", kw: /earring|keychain|key chain|jewel|pendant/, idea: "Acrylic earrings or a keychain" },
+  { c: "WOOD-101", n: "Birdhouse", wf: "wood", pdf: "1a9CH8UZXqVncMHj1Wr6SZx37k2-sqZZ4", dir: "1W7GOrSx1pqotuL4T31gtBs88DH147KJF", files: "", kw: /bird ?house|nesting box/, idea: "A birdhouse" },
+  { c: "WOOD-102", n: "Hardwood Cutting Board", wf: "wood", pdf: "1oti4K9otZ5qv9huV8bJ9PsTj-MdH5Q5b", dir: "1c2qw_cAn9heCS8jmqJW6hiCtRAyl0oj0", files: "", kw: /cutting board|chopping board|charcuterie/, idea: "A hardwood cutting board" },
+  { c: "WOOD-103", n: "Small Wall Shelf", wf: "wood", pdf: "1Y8Y6QED4CKttOENdqvGInAg7AMhZqK4_", dir: "1EAbkAHROGoZFaqkv8C9nVn1_doulOm6z", files: "", kw: /shel(f|ves)/, idea: "A small wall shelf" },
+  { c: "CNC-101", n: "Carved Wooden Sign", wf: "cnc", pdf: "10TSrHg2FgWGl6628MUyH4f5OkSZGdVbW", dir: "1q9zywcJjVIeoDiX2OYZwISyeb9FbDN0q", files: "SVG design", kw: /\bsign/, idea: "A CNC-carved wooden sign" },
+  { c: "MILL-101", n: "Milled Aluminum Keychain", wf: "carvera", pdf: "1-SyUCcrDaVmMlew7Ht1I7qYAeLK7Y63y", dir: "17_IozKoZgzHzfSPhxjhqQ1m-cGmLpr_5", files: "SVG design", kw: /keychain|key chain|tag|alumin/, idea: "A milled aluminum keychain" },
+  { c: "FDM-101", n: "3D-Printed Phone Stand", wf: "print", pdf: "1b6qhsBGBOSuBhOYN8gsqYzUpITlfR8jg", dir: "1iUHV1fcf2UlFtwnKbiDESZ0_2DhqHazo", files: "STL model", kw: /phone stand|phone holder|\bstand\b/, idea: "A 3D-printed phone stand" },
+  { c: "SCN-101", n: "Scan & Print a Mini", wf: "scan", pdf: "1lWSr3mzrxP6q_0QOVHGerNEm5bzD-1sc", dir: "1HhHiEmqiGJZBt4qS8NlaierZnotAQ_l6", files: "", kw: /scan|mini|replica|figurine/, idea: "Scan an object and print a mini" },
+  { c: "VNL-101", n: "Custom Sticker Sheet", wf: "vinyl", pdf: "1KwBVs71uUN_QFQIiBqsOn9YDz6pWqzn0", dir: "1FCEtc097SePr86CGomRMe47d5UYDf6ep", files: "", kw: /sticker|decal/, idea: "A sheet of custom stickers" },
+  { c: "SUB-101", n: "Polyester Shirt", wf: "sublimation", pdf: "1rEQxq5LOU1mpQAzwPOMgctmFpB0QtzxF", dir: "1L1C_Co9uohRSDkFQCvDp2lAH1NrgQYrC", files: "", kw: /shirt|\btee\b|jersey/, idea: "A polyester shirt" },
+  { c: "SEW-101", n: "Drawstring Pouch", wf: "sewing", pdf: "12H8kGSGK-gpG2rYew-2fjN8cjTMdSp6o", dir: "1NGHPEpqNxRIHRIwUteZSplyAaB496SrZ", files: "", kw: /pouch|drawstring|\bbag\b|sew/, idea: "A drawstring pouch" },
+  { c: "EMB-101", n: "Embroidered Patch", wf: "sewing", pdf: "1n55AHf-RL36khykE2qJet9DR_SLFygbs", dir: "1FIindbXMMtugzDF-Y3UTANANHQVVxoTF", files: "AI design file", kw: /patch|embroider/, idea: "An embroidered patch" },
+  { c: "SPR-101", n: "Spray-Painted Planter", wf: "casting", pdf: "14ft3Qga3hYlwpdiCotTLPCnry3A5yjZ5", dir: "1BPUMCSkKbWarxdHa2t70VBPxv_UClupA", files: "", kw: /spray|paint|planter/, idea: "A spray-painted planter or prop" },
+  { c: "ELEC-101", n: "Splice & Light an LED", wf: "electronics", pdf: "1HrnTn2PdhS1SW5_g48l5-mzHFwW_oDo0", dir: "1WC5GGMNp_uevYqvrppo0cTXo74e_-crd", files: "", kw: /\bleds?\b|solder|splice|wir(e|ing)|circuit/, idea: "Splice wires and light an LED" },
+  { c: "BIKE-101", n: "Bike Tune-Up", wf: "bike", pdf: "1YEP_mBCm1CRlk8wtkJwxMtvItECKMPMC", dir: "1Zth9AerrFI1VuTY3vAf-JGeal-Cc2vKU", files: "", kw: /bike|bicycle|flat tire|brake/, idea: "A bike tune-up" },
+  { c: "PHO-101", n: "Portfolio Photos", wf: "photo", pdf: "13-GtBJ-yXxjvtoxeke8u3oasRvOk8tS_", dir: "1oRhxhftUlNRHByq-xHVqFn1XCnMYBmnF", files: "", kw: /photo|portfolio/, idea: "Portfolio photos of your work" }
+];
+function gPdf(g) { return "https://drive.google.com/file/d/" + g.pdf + "/view"; }
+function gDir(g) { return "https://drive.google.com/drive/folders/" + g.dir; }
+function guidesFor(wf) { return GUIDES.filter(function (g) { return g.wf === wf; }); }
+function guideForText(txt, wf) { var t = (txt || "").toLowerCase(); if (!t) return null; for (var i = 0; i < GUIDES.length; i++) if (GUIDES[i].wf === wf && (GUIDES[i].idea.toLowerCase() === t || GUIDES[i].kw.test(t))) return GUIDES[i]; return null; }
+function guideForIdea(it) { for (var i = 0; i < GUIDES.length; i++) if (GUIDES[i].idea === it.n) return GUIDES[i]; return null; }
+function gLink(g, t) { return '<a class="lnk" href="' + gPdf(g) + '" target="_blank" rel="noopener">' + (t || "Printable guide") + " ↗</a>"; }
+function gCard(g, big) {
+  var w = WF[g.wf];
+  return '<div class="gcard" style="--c:' + COL[w.c][0] + '"><span class="gcode">' + g.c + "</span><b>" + esc(g.n) + "</b>" + (big ? '<span class="gm">' + w.n + (g.files ? " · includes " + g.files : "") + "</span>" : "") +
+    '<span class="gacts"><a class="qbtn gbtn" href="' + gPdf(g) + '" target="_blank" rel="noopener">Open guide ↗</a>' + (g.files ? '<a class="lnk" href="' + gDir(g) + '" target="_blank" rel="noopener">' + g.files + " ↗</a>" : "") + "</span></div>";
+}
 /* ===================== STATE ===================== */
-var S = { wf: "laser", mat: "wood", size: "m", sub: "any", exp: "new", from: "example" };
+var S = { wf: "laser", mat: "wood", size: "m", sub: "any", exp: "new", from: "example", project: "a plywood sign for our lab", set: null };
 var LS = { get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
 if (LS.get("reefpf.exp") === "member") S.exp = "member";
 var h0 = (location.hash || "").replace("#", "");
-if (WF[h0]) { S.wf = h0; S.mat = "any"; S.size = "m"; S.from = "link"; }
+if (WF[h0]) { S.wf = h0; S.mat = "any"; S.size = "m"; S.from = "link"; S.project = null; }
 
 /* ===================== LOGIC ===================== */
-function mainTr(w) { var l = w.tr.filter(function (k) { return TR[k].lvl !== 4; }); return TR[l[l.length - 1]]; }
-function lvName(l) { return l === 1 ? "Level I" : l === 2 ? "Level II" : l === 0 ? "DIY guide" : l === 3 ? "By appointment" : l === 4 ? "Policy" : l === 5 ? "Reserve" : "Ask staff"; }
-function lvCls(l) { return l === 1 ? "l1" : l === 2 ? "l2" : l === 0 ? "l0" : l === 3 ? "l3" : "la"; }
+function mainTr(w) { var l = w.tr.filter(function (k) { return TR[k].lvl !== 4 && (w.trOpt || []).indexOf(k) < 0; }); return TR[l[l.length - 1]] || TR.open; }
+function lvName(l) { return l === 1 ? "Level I" : l === 2 ? "Level II" : l === 0 ? "DIY guide" : l === 3 ? "By appointment" : l === 4 ? "Policy" : l === 5 ? "Reserve" : l === 6 ? "Open use" : l === 7 ? "Checkout" : "Ask staff"; }
+function lvCls(l) { return l === 1 ? "l1" : l === 2 ? "l2" : l === 0 ? "l0" : l === 3 ? "l3" : l === 6 ? "lo" : l === 7 ? "l3" : "la"; }
 function matOk(w) { return S.mat === "any" || w.mats[0] === "any" || w.mats.indexOf(S.mat) >= 0; }
 function sizeOk(w) { return !!w.split || SR[S.size] <= SR[w.size]; }
 function rank() {
-  var cands = [S.wf].concat(WF[S.wf].alts), out = cands.map(function (k, i) {
+  var cands = S.set && S.set.indexOf(S.wf) >= 0 ? [S.wf].concat(S.set.filter(function (k) { return k !== S.wf; })) : [S.wf].concat(WF[S.wf].alts), out = cands.map(function (k, i) {
     var w = WF[k], s = i === 0 ? 10 : 6 - i * 0.5;
     if (S.mat !== "any" && w.mats[0] !== "any") s += w.mats.indexOf(S.mat) >= 0 ? 4 : -9;
     if (!sizeOk(w)) s -= 7;
@@ -742,12 +980,14 @@ function rank() {
 }
 function matLabel(k) { for (var i = 0; i < MATS.length; i++) if (MATS[i][0] === k) return MATS[i][1]; return k; }
 function subLabel(k) { for (var i = 0; i < SUBM.length; i++) if (SUBM[i][0] === k) return SUBM[i][1]; return k; }
-function sizeLabel(k) { for (var i = 0; i < SIZES.length; i++) if (SIZES[i][0] === k) return SIZES[i][1]; return k; }
+function sizeOpts() { var w = S.wf && WF[S.wf]; return (w && w.sizeOpts) || SIZES; }
+function sizeLabel(k) { var o = sizeOpts(); for (var i = 0; i < o.length; i++) if (o[i][0] === k) return o[i][1]; return k; }
 function notes(k) {
   var n = [], w = WF[k];
-  if (k === "laser" && S.size === "l") n.push(["warn", "Anything over 24″ × 24″ goes on the 48″ × 36″ Fusion Pro, which needs extra onboarding the first time. Check with staff before you book."]);
-  if (k === "laser" && S.mat === "metal") n.push(["", "Metal engraving (awards, plaques, tags) is for experienced laser users: get comfortable on the Epilog lasers first, then talk to staff about the xTool F2 Ultra. Its MOPA fiber laser marks metal within an 8.6″ × 8.6″ area. The Epilog lasers don’t mark bare metal, and no REEF laser cuts metal. To cut aluminum, use the Carvera Air."]);
-  if (k === "laser" && S.mat === "metal" && S.size === "l") n.push(["warn", "The xTool F2 Ultra engraves up to 8.6″ × 8.6″. Plan larger metal pieces in sections, or ask staff."]);
+  if (k === "laser" && S.size === "x") n.push(["warn", "Bigger than 48″ × 36″ won’t fit any REEF laser. Split the design into panels that fit, or cut it on the 4′ × 4′ CNC router."]);
+  if (k === "laser" && S.size === "l") n.push(["warn", "Anything over 24″ × 24″ goes on the 48″ × 36″ Fusion Pro, which needs extra onboarding the first time. Email staff before your first booking."]);
+  if (k === "laser" && S.mat === "metal") n.push(["", "Metal engraving (awards, plaques, tags) is for experienced laser users: get comfortable on the Epilog lasers first, then email staff to get started on the xTool F2 Ultra. Its MOPA fiber laser marks metal within an 8.6″ × 8.6″ area. The Epilog lasers don’t mark bare metal, and no REEF laser cuts metal. To cut aluminum, use the Carvera Air."]);
+  if (k === "laser" && S.mat === "metal" && S.size === "l") n.push(["warn", "The xTool F2 Ultra engraves up to 8.6″ × 8.6″. Plan larger metal pieces in sections."]);
   if (k === "print" && S.size === "l") n.push(["warn", "Bigger than about 12″? Split the model into parts (PrusaSlicer’s Cut tool works well), print them on the Core One L (300 mm cube) with your own filament, then glue or fasten them together."]);
   if (k === "carvera" && S.size === "l") n.push(["warn", "The Carvera Air works inside 300 × 200 × 130 mm. Bigger wood, plastic or foam parts go on the Shapeoko."]);
   if (k === "cnc" && S.mat === "metal") n.push(["warn", "Aluminum stays off the Shapeoko at REEF. Metal parts go on the Carvera Air."]);
@@ -756,7 +996,7 @@ function notes(k) {
   if (S.wf === "sublimation" && S.sub === "cotton") n.push(["warn", "Cotton doesn’t work with our dye-sub setup: the ink only bonds to polyester and treated surfaces. Embroidery works on cotton, or switch to a polyester or poly-blend blank."]);
   if (k === "sublimation") n.push(["", 'Works on polyester, poly blends, plastics like acrylic, and sublimation-treated blanks. Suppliers such as <a class="lnk" href="https://www.jpplus.com" target="_blank" rel="noopener">jpplus.com</a> sell treated blanks. Not cotton.']);
   if (k === "wood" || k === "cnc") n.push(["", "Wood shop: wood and plastic only. No treated lumber, cedar or tropical woods."]);
-  if (!matOk(w)) n.push(["warn", "This route doesn’t usually work with " + matLabel(S.mat).toLowerCase() + ". Compare the other options below, or ask staff."]);
+  if (!matOk(w)) n.push(["warn", "This route doesn’t usually work with " + matLabel(S.mat).toLowerCase() + ". Compare the other options below."]);
   return n;
 }
 
@@ -775,11 +1015,18 @@ function drawTiles() {
 function drawRefine() {
   var w = S.wf && WF[S.wf], el = $("#refine");
   el.hidden = !w || !!w.offsite; if (el.hidden) return;
-  el.innerHTML = (w.noMat ? "" : '<fieldset class="matf"><legend>Material</legend>' + seg("mat", MATS) + "</fieldset>") +
+  var bits = [];
+  if (!w.noMat) bits.push(S.mat === "any" ? "Any material" : matLabel(S.mat));
+  if (w.subMat) bits.push(S.sub === "any" ? "Any blank" : subLabel(S.sub));
+  if (!w.noSize) bits.push(sizeLabel(S.size));
+  bits.push(S.exp === "new" ? "New to the REEF" : "I have swipe access");
+  el.classList.toggle("open", !!S.refOpen);
+  el.innerHTML = '<div class="refsum"><span>Showing results for: <b>' + bits.join("</b> · <b>") + '</b></span><button type="button" class="btn line sm" id="refBtn" aria-expanded="' + !!S.refOpen + '">' + (S.refOpen ? "Done" : "Change") + "</button></div>" + '<div class="refbody"' + (S.refOpen ? "" : " hidden") + ">" + (w.noMat ? "" : '<fieldset class="matf"><legend>Material</legend>' + seg("mat", MATS) + "</fieldset>") +
     (w.subMat ? '<fieldset class="matf"><legend>What are you printing onto?</legend>' + seg("sub", SUBM) + "</fieldset>" : "") +
-    (w.noSize ? "" : '<fieldset><legend>Size</legend>' + seg("size", SIZES) + "</fieldset>") +
-    '<fieldset><legend>You</legend>' + seg("exp", EXP) + "</fieldset>";
+    (w.noSize ? "" : '<fieldset><legend>Size</legend>' + seg("size", sizeOpts()) + "</fieldset>") +
+    '<fieldset><legend>You</legend>' + seg("exp", EXP) + "</fieldset></div>";
 }
+document.addEventListener("click", function (e) { if (e.target.id === "refBtn") { S.refOpen = !S.refOpen; drawRefine(); } });
 function copyChip(t) { return '<span class="copy"><code>' + esc(t) + '</code><button type="button" data-copy="' + esc(t) + '">Copy</button></span>'; }
 function trItem(key) {
   var t = TR[key], acts = [];
@@ -787,9 +1034,9 @@ function trItem(key) {
   if (t.lvl === 1) acts.push('<a class="lnk" href="' + t.url + '" target="_blank" rel="noopener">Book on Calendly ↗</a>');
   if (t.lvl === 0) acts.push('<a class="lnk" href="' + t.url + '" target="_blank" rel="noopener">Open the guide ↗</a>');
   (t.extra || []).forEach(function (x) { acts.push('<a class="lnk" href="' + x[1] + '" target="_blank" rel="noopener">' + x[0] + " ↗</a>"); });
-  if (t.lvl === 2 || t.lvl === -1 || t.lvl === 3 || t.email) acts.push(copyChip(JOE));
+  if (t.lvl === 2 || t.lvl === 3 || t.email) acts.push(copyChip(JOE));
   var meta = [t.dur, t.lvl === 2 ? "schedule by email with Joe" : null, t.req ? "needs " + t.req : null].filter(Boolean).join(" · ");
-  return '<div class="titem"><span class="lv ' + lvCls(t.lvl) + '">' + lvName(t.lvl) + "</span><div><b>" + t.n + "</b>" + (meta ? '<div class="meta">' + meta + "</div>" : "") + (t.rules ? "<ol>" + t.rules.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ol>" : "") + (t.note ? '<div class="meta">' + t.note + "</div>" : "") + '</div><div class="acts">' + acts.join("") + "</div></div>";
+  return '<div class="titem"><span class="lv ' + lvCls(t.lvl) + '">' + lvName(t.lvl) + "</span><div><b>" + t.n + "</b>" + (meta ? '<div class="meta">' + meta + "</div>" : "") + (t.what ? '<div class="meta what">' + t.what + "</div>" : "") + (t.rules ? "<ol>" + t.rules.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ol>" : "") + (t.note ? '<div class="meta">' + t.note + "</div>" : "") + '</div><div class="acts">' + acts.join("") + "</div></div>";
 }
 function route(k) {
   var w = WF[k], st = [];
@@ -797,11 +1044,14 @@ function route(k) {
     body: '<div class="titem"><span class="lv l1">Step A</span><div><b>In-person orientation</b><div class="meta">~20 min · wear closed-toe shoes</div></div><div class="acts"><a class="lnk" href="' + LINK.orient + '" target="_blank" rel="noopener">Book orientation ↗</a></div></div>' +
       '<div class="titem"><span class="lv l1">Step B</span><div><b>Machine Shop &amp; Makerspace Safety (EHS)</b><div class="meta">Online course · includes soldering</div></div><div class="acts"><a class="lnk" href="' + LINK.ehs + '" target="_blank" rel="noopener">Harvard training portal ↗</a></div></div>' });
   else st.push({ h: "Swipe access", done: true, p: "You’re in. Keep your EHS online training current: it has to be within the last 365 days.", body: "" });
-  var mach = w.tr.some(function (k) { var l = TR[k].lvl; return l === 1 || l === 2; });
-  st.push({ h: "Get trained", p: [mach ? "Have a project in mind before you sign up for training." : "", w.tr.length > 1 ? "Do these before you start." : ""].join(" ").trim(), body: w.tr.map(trItem).join("") });
+  var mach = w.tr.some(function (k) { var l = TR[k].lvl; return l === 1 || l === 2; }), opt = w.trOpt || [], need = w.tr.filter(function (k) { return opt.indexOf(k) < 0; }), later = w.tr.filter(function (k) { return opt.indexOf(k) >= 0; });
+  var has = function (l) { return w.tr.some(function (k) { return TR[k].lvl === l; }); };
+  var legend = has(2) ? '<div class="lvkey">' + (has(1) ? '<span><i class="lv l1">Level I</i> short intro training, book online</span>' : "") + '<span><i class="lv l2">Level II</i> advanced machines, after Level I, scheduled with staff</span></div>' : "";
+  st.push({ h: w.tr.every(function (k) { return TR[k].lvl === 7; }) ? "Check out a headset" : "Get trained", p: [mach ? "Have a project in mind before you sign up for training." : "", need.length > 1 ? "Do these before you start." : ""].join(" ").trim(),
+    body: legend + (later.length ? '<div class="trgrp">Start here</div>' : "") + need.map(trItem).join("") + (later.length ? '<div class="trgrp">Later, only if your project needs it</div>' + later.map(trItem).join("") : "") });
   var rb = w.res.map(function (r) { var x = RES[r]; return '<div class="titem"><span class="lv la">Reserve</span><div><b>' + x[0] + "</b>" + (x[2] ? '<div class="meta">' + x[2] + "</div>" : "") + '</div><div class="acts"><a class="lnk" href="' + x[1] + '" target="_blank" rel="noopener">Book a slot ↗</a></div></div>'; }).join("");
   st.push({ h: "Book time", pre: staffBlock(w), p: w.book ? w.book : w.res.length ? "A reservation makes sure staff can let you into the side shop. Arrive within 7 minutes or the slot may go to the next person." : "No reservation system for this one. Drop in during swipe hours once you’re trained; availability isn’t guaranteed.", body: rb });
-  st.push({ h: "Make it", p: "You’ll need " + w.sw + ".", body: "<ul>" + w.make.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul>" });
+  st.push({ h: "Make it", p: "You’ll need " + w.sw + "." + (w.matl ? '</p><p class="matl"><b>Materials:</b> ' + w.matl : ""), body: "<ul>" + w.make.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul>" });
   return '<aside class="route enter d1"><h3>Your route</h3><p>' + (S.exp === "new" ? "Four steps from first visit to finished part." : "Three steps to go.") + '</p><ol>' +
     st.map(function (s, i) { return '<li class="step' + (s.done ? " done" : "") + '"><span class="num">' + (s.done ? "✓" : i + 1) + '</span><div><h5>' + s.h + "</h5>" + (s.pre || "") + (s.p ? "<p>" + s.p + "</p>" : "") + s.body + "</div></li>"; }).join("") + "</ol></aside>";
 }
@@ -824,34 +1074,65 @@ function drawOffsite() {
     '<div class="alts enter d1"><h4>What REEF can do</h4><div class="altgrid">' + alts.map(function (a) { var x = WF[a[0]]; return '<button type="button" class="alt" data-wf="' + a[0] + '" style="--c:' + COL[x.c][0] + '"><b>' + x.n + "</b><span>" + a[1] + "</span><em>" + lvName(mainTr(x).lvl) + " · see this route →</em></button>"; }).join("") + "</div></div></div>";
   $("#ticket").hidden = false; $("#tkName").textContent = "Not available at REEF"; $("#tkMeta").textContent = "No hot work permit · see options below"; moveArt(0, "red");
 }
+function qlink(u, t) { return '<a class="qbtn" href="' + u + '" target="_blank" rel="noopener">' + t + " ↗</a>"; }
+function qmail() { return '<button type="button" class="qbtn" data-copy="' + JOE + '">Copy Joe’s email</button><span class="qmail">' + JOE + "</span>"; }
+/* the short version: four plain steps, one action each */
+function quickSteps(w) {
+  var q = [];
+  if (S.exp === "new") q.push({ t: "Get access", d: "A 20-minute orientation and an online safety course.", a: qlink(LINK.orient, "Book orientation") });
+  else q.push({ t: "Access", d: "You’re all set. Keep your online safety course up to date.", done: true });
+  var need = w.tr.filter(function (k) { return TR[k].lvl !== 4 && (w.trOpt || []).indexOf(k) < 0; }), t0 = TR[need[0]] || TR.open, d, a = "";
+  if (t0.lvl === 1) { d = t0.n + (t0.dur ? " (" + t0.dur.replace("~", "about ") + ")" : ""); a = qlink(t0.url, "Book training"); }
+  else if (t0.lvl === 0) { d = t0.n.replace(/ guide$/, "") + ": a self-paced guide, no booking."; a = qlink(t0.url, "Open the guide"); }
+  else if (t0.lvl === 6) d = "No training needed.";
+  else { d = t0.n + ". Email Joe to set it up."; a = qmail(); }
+  if (need.length > 1) d += " Then: " + need.slice(1).map(function (k) { return TR[k].n; }).join(", ") + ".";
+  q.push({ t: t0.lvl === 7 ? "Check out" : "Get trained", d: d, a: a });
+  var b, ba = "";
+  if (w.res.length) { b = "Reserve " + ({ laser24: "a laser", laserPro: "the large laser", wood: "the woodshop", casting: "the casting room", embroid: "the embroidery machine", photo: "the photo booth" }[w.res[0]] || "a time") + (STAFFED[w.room] ? ". Open only when staff are here." : "."); ba = qlink(RES[w.res[0]][1], "Reserve a time"); }
+  else b = w.book ? w.book.split(/(?<=\.)\s/)[0] : "No booking needed. Come in during swipe hours.";
+  q.push({ t: "Book time", d: b, a: ba });
+  q.push({ t: "Make it", d: "Bring " + w.sw.replace(/^an? /, function (m) { return m; }) + "." });
+  return '<ol class="quick">' + q.map(function (x, i) { return '<li class="' + (x.done ? "done" : "") + '"><span class="qn">' + (x.done ? "✓" : i + 1) + "</span><div><b>" + x.t + "</b><p>" + x.d + "</p>" + (x.a ? '<div class="qa">' + x.a + "</div>" : "") + "</div></li>"; }).join("") + "</ol>";
+}
+function guideStrip(k, pg) {
+  var gs = guidesFor(k); if (!gs.length) return "";
+  if (pg) gs = [pg].concat(gs.filter(function (g) { return g !== pg; }));
+  return '<div class="gstrip"><h5>' + (pg ? "Your project has a step-by-step guide" : gs.length > 1 ? "Try a guided first project" : "Try a guided first project") + "</h5><p>Printable guides with the trainings, materials and steps." + (gs.some(function (g) { return g.files; }) ? " Make files are in the guide’s folder." : "") + '</p><div class="ggrid">' + gs.map(function (g) { return gCard(g); }).join("") + "</div></div>";
+}
 function drawResult(animate) {
   if (!S.wf) { drawEmpty(); return; }
   if (S.wf === "offsite") { drawOffsite(); return; }
   $("#ticket").hidden = false;
   var r = rank(), top = r[0].k, w = WF[top], c = COL[w.c], picked = WF[S.wf];
-  var fit = [];
-  if (!w.noMat && S.mat !== "any") fit.push(matOk(w) ? "Works with " + matLabel(S.mat).toLowerCase() : "Not for " + matLabel(S.mat).toLowerCase());
-  if (top === "sublimation" && S.sub !== "any") fit.push("Works with " + subLabel(S.sub).toLowerCase());
-  if (STAFFED[w.room]) fit.push("Staffed hours only");
-  if (!w.noSize) fit.push(top === "laser" && S.mat === "metal" ? "Metal: up to 8.6″ × 8.6″" : w.split && S.size === "l" ? "Print in parts" : sizeOk(w) ? "Size fits" : "Too big for this machine");
-  fit.push(w.room);
-  var swapped = top !== S.wf;
+  var swapped = top !== S.wf, proj = projPhrase(S.project), byUs = S.from === "text" || S.from === "example" || S.from === "idea";
   $("#resEyebrow").textContent = S.from === "example" ? "Example result · try your own above" : "Your path";
-  $("#resTitle").textContent = (swapped ? "Better fit: " : "Best fit: ") + w.n;
-  var nts = notes(top);
-  var html = '<div class="res"><div class="lcol"><article class="rec' + (animate ? " enter" : "") + '"><div class="band" style="--c:' + c[0] + ";--on:" + c[1] + '"><small>' + (swapped ? "Recommended instead of " + picked.n : "Recommended") + "</small><h3>" + w.n + "</h3><p>" + w.why + '</p><div class="fit">' + fit.map(function (f) { return "<span>" + f + "</span>"; }).join("") + "</div></div>" +
-    '<div class="recbody"><div><h4>Machines &amp; access</h4><table class="machines"><tbody>' + w.m.map(function (m) { var t = TR[m[2]]; return '<tr><td><b>' + m[0] + '</b><span class="mm">' + m[1] + "</span>" + (m[3] ? '<span class="mtag t-' + (m[4] || "y") + '">' + m[3] + "</span>" : "") + '</td><td><span class="lv ' + lvCls(t.lvl) + '">' + lvName(t.lvl) + "</span></td></tr>"; }).join("") + "</tbody></table></div>" +
-    (nts.length ? '<div style="display:flex;flex-direction:column;gap:8px">' + nts.map(function (n) { return '<div class="note ' + n[0] + '">' + n[1] + "</div>"; }).join("") + "</div>" : "") +
-    '<div><h4>' + (w.exH || "People make") + '</h4><div class="exs">' + w.ex.map(function (e) { return "<span>" + e + "</span>"; }).join("") + "</div></div></div></article>";
-  var alts = r.slice(1).filter(function (a) { return a.s > -2; }).slice(0, 3);
-  if (alts.length) html += '<div class="alts' + (animate ? " enter d2" : "") + '"><h4>Also consider</h4><div class="altgrid">' + alts.map(function (a) {
-    var x = WF[a.k], t = mainTr(x);
-    var why = !matOk(x) ? "Not ideal for " + matLabel(S.mat).toLowerCase() : !sizeOk(x) ? "Smaller parts only" : x.why.split(". ")[0] + ".";
-    return '<button type="button" class="alt" data-wf="' + a.k + '" style="--c:' + COL[x.c][0] + '"><b>' + x.n + "</b><span>" + why + "</span><em>" + lvName(t.lvl) + " · see this route →</em></button>";
+  $("#resTitle").textContent = byUs || swapped ? (swapped ? "Better fit: " : "Best fit: ") + w.n : w.n;
+  var lab = swapped ? "Recommended instead of " + picked.n : S.from === "text" ? "Recommended for your project" : S.from === "example" ? "Example recommendation" : S.from === "idea" ? "Stella’s pick for your project" : S.from === "alt" ? "You chose this route" : "You picked this category";
+  var nts = notes(top), warns = nts.filter(function (n) { return n[0] === "warn"; }), tips = nts.filter(function (n) { return n[0] !== "warn"; });
+  var ex = projEx(top), pg = guideForText(S.project, top);
+  if (pg) ex = [null, top, "Open the step-by-step guide (" + pg.c + ")", gPdf(pg)];
+  var html = '<article class="rec plan' + (animate ? " enter" : "") + '"><div class="band" style="--c:' + c[0] + ";--on:" + c[1] + '"><small>' + lab + "</small><h3>" + w.n + "</h3>" +
+    (proj ? '<p class="forp">For your <b>' + esc(proj) + "</b>" + (ex ? ' · <a class="exlink" href="' + ex[3] + '" target="_blank" rel="noopener">' + ex[2] + " ↗</a>" : "") + "</p>" : "") +
+    "<p>" + w.why.split(/(?<=\.)\s/)[0] + "</p></div>" +
+    '<div class="planbody"><h4>Your next steps</h4>' + quickSteps(w) + guideStrip(top, pg) +
+    warns.map(function (n) { return '<div class="note warn"><span>' + n[1] + "</span></div>"; }).join("") + "</div></article>";
+  html += '<div class="moreinfo' + (animate ? " enter d1" : "") + '"><p class="morehd">Want the details? Open any section.</p>' +
+    '<details class="more"><summary>Every step in detail<span>training levels, booking rules, materials</span></summary>' + route(top).replace(" enter d1", "") + "</details>" +
+    '<details class="more"><summary>Machines you’ll use<span>' + w.m.length + (w.m.length === 1 ? " machine" : " machines") + ", tap one to see how it helps</span></summary><div class=\"mlist\">" + w.m.map(function (m) {
+      var t = TR[m[2]], u = MUSE[m[0]] || ["", ""];
+      return '<details class="mrow"><summary><span class="mi"><b>' + m[0] + '</b><span class="mm">' + m[1] + "</span>" + (m[3] ? '<span class="mtag t-' + (m[4] || "y") + '">' + m[3] + "</span>" : "") + '</span><span class="lv ' + lvCls(t.lvl) + '">' + lvName(t.lvl) + '</span><svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3"/></svg></summary><div class="mx">' + (u[0] ? "<p>" + u[0] + "</p>" : "") + (u[1] ? '<p class="fy">' + (proj ? "<b>For your " + esc(proj) + ":</b> use it to " : "<b>Use it to</b> ") + u[1] + ".</p>" : "") + "</div></details>";
+    }).join("") + "</div></details>" +
+    '<details class="more"><summary>' + (w.exH || "What people make") + "<span>" + (tips.length ? "examples and " + tips.length + (tips.length === 1 ? " tip" : " tips") : "examples") + "</span></summary>" +
+    '<div class="exs">' + (proj && !w.exH ? '<span class="you"><svg viewBox="0 0 24 24" aria-hidden="true">' + exIcon(proj, top) + "</svg>Your " + esc(proj) + "</span>" : "") + w.ex.map(function (e) { return '<span><svg viewBox="0 0 24 24" aria-hidden="true">' + exIcon(e, top) + "</svg>" + e + "</span>"; }).join("") + "</div>" +
+    tips.map(function (n) { return '<div class="note"><span>' + n[1] + "</span></div>"; }).join("") + "</details>";
+  var alts = r.slice(1).filter(function (a) { return a.s > -2 && ASKQ[a.k]; }).slice(0, 3);
+  if (alts.length) html += '<div class="alts"><h4>Not quite right for ' + (proj ? "your " + esc(proj) : "your project") + '?</h4><div class="altgrid">' + alts.map(function (a) {
+    var x = WF[a.k];
+    return '<button type="button" class="alt" data-wf="' + a.k + '" style="--c:' + COL[x.c][0] + '"><b>' + ASKQ[a.k] + "</b><span>Try the " + x.n + " →</span></button>";
   }).join("") + "</div></div>";
-  html += "</div>" + (animate ? route(top) : route(top).replace(" enter d1", "")) + "</div>";
-  $("#resBody").innerHTML = html;
-  // ticket + art
+  html += "</div>";
+  $("#resBody").innerHTML = '<div class="res2">' + html + "</div>";
   var tt = mainTr(w);
   $("#tkName").textContent = w.n;
   $("#tkMeta").textContent = lvName(tt.lvl) + (tt.dur ? " · " + tt.dur : tt.lvl === 2 ? " · email Joe" : "") + " · " + w.room;
@@ -863,7 +1144,8 @@ function drawRead(res) {
   if (res === "none") { el.innerHTML = "<span>We couldn’t match that. Pick the closest category below.</span>"; return; }
   el.innerHTML = "<span>Reading this as</span>" + '<span class="tag">' + WF[S.wf].t + "</span>" + (S.mat !== "any" ? '<span class="tag">' + matLabel(S.mat) + "</span>" : "") + (S.wf === "sublimation" && S.sub !== "any" ? '<span class="tag">' + subLabel(S.sub) + "</span>" : "") + (WF[S.wf].noSize ? "" : '<span class="tag">' + sizeLabel(S.size) + "</span>");
 }
-function update(animate) { var w = S.wf && WF[S.wf]; if (w && w.noMat) S.mat = "any"; if (w && w.noSize) S.size = "m"; drawTiles(); drawRefine(); drawResult(animate); }
+function update(animate) { var w = S.wf && WF[S.wf]; if (w && w.noMat) S.mat = "any"; if (w && w.noSize) S.size = "m";
+  if (w) { var so = sizeOpts().map(function (o) { return o[0]; }); if (so.indexOf(S.size) < 0) S.size = S.size === "x" ? so[so.length - 1] : so.indexOf("m") >= 0 && SR[S.size] <= 1 ? "m" : so[so.length - 1]; } drawTiles(); drawRefine(); drawResult(animate); }
 
 /* hero: the REEF mark stays as supplied; the ticket beside it reflects the current match */
 function moveArt(i, col) {
@@ -877,23 +1159,26 @@ function readText(q) {
   var sc = {}, best = null, bs = 0;
   KW.forEach(function (r) { if (r[0].test(q)) Object.keys(r[1]).forEach(function (k) { sc[k] = (sc[k] || 0) + r[1][k]; }); });
   Object.keys(sc).forEach(function (k) { if (sc[k] > bs) { bs = sc[k]; best = k; } });
+  var others = Object.keys(sc).filter(function (k) { return k !== best && k !== "offsite"; }).sort(function (a, b) { return sc[b] - sc[a]; });
   var mat = "any"; for (var i = 0; i < KM.length; i++) if (KM[i][1].test(q)) { mat = KM[i][0]; break; }
   var size = "m"; for (var j = 0; j < KS.length; j++) if (KS[j][1].test(q)) { size = KS[j][0]; break; }
   if (!best && mat !== "any") best = { wood: "wood", plastic: "laser", metal: "carvera", fabric: "sewing", paper: "vinyl", foam: "cnc", electronics: "electronics" }[mat];
   var sub = "any";
   if (best === "sublimation") sub = /cotton/.test(q) ? "cotton" : /acrylic|plastic/.test(q) ? "acrylic" : /treated|coated|blank/.test(q) ? "treated" : /poly/.test(q) ? "poly" : "any";
-  return best ? { wf: best, mat: mat, size: size, sub: sub } : null;
+  return best ? { wf: best, mat: mat, size: size, sub: sub, others: others } : null;
 }
-var TRIES = ["a walnut sign for our lab", "an aluminum bracket", "tote bags for my club", "a cosplay prop", "stickers for a hackathon", "a scan of a fossil", "a bookshelf"];
+var TRIES = ["a tiny house", "a birdhouse", "a walnut sign for our lab", "tote bags for my club"];
 $("#tries").insertAdjacentHTML("beforeend", TRIES.map(function (t) { return '<button type="button" class="chip" data-try="' + esc(t) + '">' + esc(t) + "</button>"; }).join(""));
 function runAsk(q, scroll) {
   var r = readText(q);
   if (!q.trim()) { clearAll(); return; }
   if (!r) { S.wf = null; S.from = null; update(false); drawRead("none"); drawEmpty("We couldn’t match “" + esc(q.trim()) + "”. Try different words, or pick the closest category."); if (scroll) go("#pick"); stellaCheer("none"); return; }
-  S.wf = r.wf; S.mat = r.mat; S.size = r.size; S.sub = r.sub; S.from = "text";
+  S.wf = r.wf; S.mat = r.mat; S.size = r.size; S.sub = r.sub; S.from = "text"; S.project = q.trim();
+  S.set = r.wf === "offsite" ? null : uniq([r.wf].concat(r.others, WF[r.wf].alts));
   update(true); drawRead(true); if (scroll) go("#result"); stellaCheer(r.wf === "offsite" ? "offsite" : "result");
 }
-function clearAll() { S.wf = null; S.mat = "any"; S.size = "m"; S.sub = "any"; S.from = null; drawRead(null); update(false); }
+function uniq(a) { return a.filter(function (k, i) { return WF[k] && a.indexOf(k) === i; }); }
+function clearAll() { S.wf = null; S.mat = "any"; S.size = "m"; S.sub = "any"; S.from = null; S.project = null; S.set = null; drawRead(null); update(false); }
 function go(sel) { var el = $(sel); if (el) el.scrollIntoView({ behavior: REDUCE ? "auto" : "smooth", block: "start" }); }
 
 /* ===================== EVENTS ===================== */
@@ -903,8 +1188,9 @@ $("#tries").addEventListener("click", function (e) { var b = e.target.closest("[
 document.addEventListener("click", function (e) {
   var t = e.target.closest("[data-wf]");
   if (t) {
-    var fromTile = t.classList.contains("tile");
-    S.wf = t.getAttribute("data-wf"); S.from = "pick";
+    var fromTile = t.classList.contains("tile"), fromAlt = !!t.closest(".alt"), prev = S.wf;
+    if (fromAlt) { if (!S.set) S.set = uniq([prev].concat(WF[prev] ? WF[prev].alts : [])); S.wf = t.getAttribute("data-wf"); S.from = "alt"; }
+    else { S.wf = t.getAttribute("data-wf"); S.from = t.closest("#rooms") ? "index" : "pick"; S.set = null; S.project = null; }
     if (fromTile) { S.mat = "any"; S.size = "m"; S.sub = "any"; drawRead(null); }
     else { var w = WF[S.wf]; if (!matOk(w)) S.mat = "any"; if (!sizeOk(w)) S.size = w.size; }
     update(true); go("#result"); stellaCheer("result"); return;
@@ -920,7 +1206,7 @@ document.addEventListener("click", function (e) {
     try { navigator.clipboard.writeText(txt).then(done, fall); } catch (er) { fall(); }
   }
 });
-window.addEventListener("hashchange", function () { var h = location.hash.replace("#", ""); if (WF[h]) { S.wf = h; S.mat = "any"; S.from = "link"; update(true); go("#result"); } });
+window.addEventListener("hashchange", function () { var h = location.hash.replace("#", ""); if (WF[h]) { S.wf = h; S.mat = "any"; S.from = "link"; S.project = null; S.set = null; update(true); go("#result"); } });
 
 /* ===================== EQUIPMENT INDEX ===================== */
 function hl(s, q) { s = esc(s); if (!q) return s; var i = s.toLowerCase().indexOf(q); return i < 0 ? s : s.slice(0, i) + "<mark>" + s.slice(i, i + q.length) + "</mark>" + s.slice(i + q.length); }
@@ -932,6 +1218,8 @@ function drawIndex() {
     (groups[it.r] = groups[it.r] || []).push({ it: it, a: a }); n++;
   });
   var keys = Object.keys(ROOMS).filter(function (r) { return groups[r]; });
+  var showAll = !!q || S.idxOpen; $("#rooms").hidden = !showAll; $("#idxAll").textContent = S.idxOpen ? "Hide the list" : "Show all machines"; $("#idxAll").hidden = !!q;
+  if (!showAll) { $("#idxCount").textContent = INV.length + " machines and tools in " + Object.keys(ROOMS).length + " areas"; return; }
   $("#idxCount").textContent = n + " of " + INV.length + " machines & tools";
   $("#rooms").innerHTML = keys.length ? keys.map(function (r) {
     return '<div class="room" style="--c:' + COL[ROOMS[r][0]][0] + '"><h3><span>' + r + "</span>" + (STAFFED[r] ? '<em class="stf">Staffed hours only</em>' : "") + "<i>" + groups[r].length + "</i></h3><ul>" + groups[r].map(function (g) {
@@ -941,6 +1229,7 @@ function drawIndex() {
   }).join("") : '<p class="empty">Nothing matches “' + esc(q) + '”. Try a machine type like “saw” or “printer”.</p>';
 }
 $("#idxQ").addEventListener("input", drawIndex);
+$("#idxAll").addEventListener("click", function () { S.idxOpen = !S.idxOpen; drawIndex(); });
 
 /* ===================== SWIPE HOURS (America/New_York) ===================== */
 /* Staffed shops: the laser room, woodshop and casting room open only when REEF staff are present.
@@ -993,7 +1282,16 @@ function hours() {
 function woodFoot() { var H = WOODHRS[semester()], el = $("#woodFoot"); if (el) el.innerHTML = "Wood shop, " + H.n.toLowerCase() + ": <span class=\"mono\">" + H.txt + "</span>"; }
 hours(); woodFoot(); setInterval(function () { hours(); woodFoot(); }, 60000);
 
+/* larger text, remembered on this device */
+function setBig(on) { document.documentElement.classList.toggle("bigtext", on); $("#textSz").setAttribute("aria-pressed", on); LS.set("reefpf.big", on ? "1" : "0"); }
+$("#textSz").addEventListener("click", function () { setBig(!document.documentElement.classList.contains("bigtext")); });
+if (LS.get("reefpf.big") === "1") setBig(true);
 /* ===================== BOOT ===================== */
+(function drawLibrary() {
+  var list = GUIDES.slice().sort(function (a, b) { return ORDER.indexOf(a.wf) - ORDER.indexOf(b.wf); });
+  $("#libGrid").innerHTML = list.map(function (g) { return gCard(g, true); }).join("");
+  $("#libAll").href = LIBRARY; $("#libCount").textContent = GUIDES.length + " guides · free to print";
+})();
 drawRead(S.from === "example" ? true : null);
 update(false); drawIndex();
 
@@ -1012,26 +1310,29 @@ function starSVG(sz, cls, id) {
 var IDEAS = [
   { n: "Engraved wooden coasters", wf: "laser", mat: "wood", size: "s", fun: ["gift", "space"], work: "computer", time: "quick", why: "Design a pattern or monogram and engrave a set in one session." },
   { n: "Acrylic earrings or a keychain", wf: "laser", mat: "plastic", size: "s", fun: ["wear", "gift"], work: "computer", time: "quick", why: "Small, colorful and done in minutes on the laser." },
+  { n: "A laser-cut tiny house", wf: "laser", mat: "wood", size: "m", fun: ["gift", "space", "digital"], work: "computer", time: "longer", why: "Design press-fit walls and furniture, then cut them from thin plywood." },
+  { n: "A birdhouse", wf: "wood", mat: "wood", size: "m", fun: ["gift", "space", "useful"], work: "hands", time: "longer", tr: ["woodintro"], why: "A sturdy first woodshop build: cut, drill and assemble real boards." },
   { n: "A press-fit box", wf: "laser", mat: "wood", size: "m", fun: ["useful", "gift"], work: "computer", time: "longer", why: "Slot-together joints, no glue. A classic first laser project." },
     { n: "A sheet of custom stickers", wf: "vinyl", mat: "paper", size: "s", fun: ["space", "gift", "digital"], work: "computer", time: "quick", why: "Print full-color art, then let the Cricut cut around each one." },
   { n: "A 3D-printed phone stand", wf: "print", mat: "plastic", size: "s", fun: ["useful", "digital"], work: "computer", time: "quick", why: "A simple model to learn CAD and slicing. Free PLA on the MK4S." },
   { n: "Scan an object and print a mini", wf: "scan", mat: "any", size: "m", fun: ["digital", "gift"], work: "both", time: "longer", why: "Capture something real in 3D, then shrink it down and print it." },
   { n: "A polyester shirt", wf: "sublimation", mat: "any", sub: "poly", size: "m", fun: ["wear", "gift"], work: "computer", time: "quick", why: "Full-color artwork pressed into a polyester shirt. Bring your own blank." },
+  { n: "A drawstring pouch", wf: "sewing", mat: "fabric", size: "s", fun: ["useful", "gift", "wear"], work: "hands", time: "longer", tr: ["open"], why: "Your first sewing project: straight seams, a channel and a drawstring on the Bernina." },
   { n: "An embroidered patch", wf: "sewing", mat: "fabric", size: "s", fun: ["wear", "gift"], work: "both", time: "longer", why: "Stitch your own design on the Brother PE900 embroidery machine." },
   { n: "A spray-painted planter or prop", wf: "casting", mat: "any", size: "m", fun: ["space", "gift"], work: "hands", time: "quick", tr: ["casting"], why: "A 5-minute orientation unlocks the ventilated spray booth." },
   { n: "A hardwood cutting board", wf: "wood", mat: "wood", size: "m", fun: ["gift", "useful"], work: "hands", time: "longer", tr: ["woodintro"], why: "Cut, glue and sand a board you’ll actually use." },
   { n: "A small wall shelf", wf: "wood", mat: "wood", size: "l", fun: ["space", "useful"], work: "hands", time: "longer", tr: ["woodintro"], why: "Learn the woodshop basics with a project for your room or lab." },
   { n: "A CNC-carved wooden sign", wf: "cnc", mat: "wood", size: "l", fun: ["space"], work: "computer", time: "longer", why: "Carve big lettering or a relief into a wood panel." },
-  { n: "A light-up LED badge", wf: "electronics", mat: "electronics", size: "s", fun: ["wear", "fix", "digital"], work: "hands", time: "quick", why: "Bring an LED kit and learn to solder. Self-serve with the guide." },
+  { n: "Splice wires and light an LED", wf: "electronics", mat: "electronics", size: "s", fun: ["fix", "digital", "useful"], work: "hands", time: "quick", why: "Learn to strip, splice and solder, then light an LED with REEF wire, LEDs and batteries." },
   { n: "A bike tune-up", wf: "bike", mat: "any", size: "m", fun: ["fix", "useful"], work: "hands", time: "quick", why: "Fix a flat or adjust your brakes on the repair stand." },
   { n: "A milled aluminum keychain", wf: "carvera", mat: "metal", size: "s", fun: ["gift", "useful", "digital"], work: "computer", time: "longer", why: "Your first CAM project on the Carvera Air desktop mill." },
   { n: "Portfolio photos of your work", wf: "photo", mat: "any", size: "m", fun: ["digital"], work: "both", time: "quick", why: "Shoot clean, consistent images on a seamless backdrop." },
-  { n: "Walk around a 3D model in VR", wf: "vr", mat: "any", size: "m", fun: ["digital"], work: "computer", time: "quick", why: "See your design at full scale on the Meta Quest 3." }
+  { n: "Walk around a 3D model in VR", wf: "vr", mat: "any", size: "m", fun: ["digital"], work: "computer", time: "quick", why: "See your design at full scale on a Meta Quest 3. Email Joe to check one out." }
 ];
 
 var st = document.createElement("div"); st.id = "stella";
 st.innerHTML = '<div class="say" id="sSay" hidden></div>' +
-  '<div class="spanel" id="sPanel" role="dialog" aria-label="Stella, your REEF guide" hidden><div class="shead">' + starSVG(30, "mini") + '<b>Stella</b><span>your REEF guide</span><button type="button" class="sreset" id="sReset" title="Start over">↺ Start over</button><button type="button" class="sreset shide" id="sHide" title="Hide Stella">Hide</button><button type="button" id="sClose" aria-label="Close">×</button></div>' +
+  '<div class="spanel" id="sPanel" role="dialog" aria-label="Stella, your REEF guide" hidden><div class="shead">' + starSVG(30, "mini") + '<b>Stella</b><span>your REEF guide</span><button type="button" id="sClose" aria-label="Close">×</button></div>' +
   '<div class="msgs" id="sMsgs" aria-live="polite"></div><div class="opts" id="sOpts"></div></div>' +
   '<button type="button" class="stella-btn" id="sBtn" aria-label="Open Stella, the REEF guide. You can also drag her around." aria-expanded="false"><span class="zzz" aria-hidden="true"><b>z</b><b>z</b><b>z</b></span><span class="lean" id="sLean">' + starSVG(96, "idle", "sStar") + "</span></button>";
 document.body.appendChild(st);
@@ -1165,8 +1466,7 @@ function openPanel(o, ideas) {
   if (!o) clearSpot();
 }
 $("#sClose").onclick = function () { openPanel(false); };
-$("#sHide").onclick = function () { hideStella(); };
-$("#sReset").onclick = function () { clearSpot(); sMsgs.innerHTML = ""; home(); };
+
 document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !sPanel.hidden) openPanel(false); });
 var typingT = 0;
 function say(html) {
@@ -1220,14 +1520,19 @@ function score(it) {
   return s + Math.random() * 0.5;
 }
 function ideaCard(it) {
-  var w = WF[it.wf], t = TR[w.tr.filter(function (k) { return TR[k].lvl !== 4; })[0]], i = IDEAS.indexOf(it);
-  return '<div class="idea" style="--c:' + COL[w.c][0] + '"><b>' + it.n + "</b><span>" + it.why + '</span><div class="meta2"><span class="lv ' + lvCls(t.lvl) + '">' + lvName(t.lvl) + "</span>Starts here · " + w.n + '</div><button type="button" class="chip" data-idea="' + i + '">Show me this route →</button></div>';
+  var w = WF[it.wf], t = TR[(it.tr || w.tr.filter(function (k) { return TR[k].lvl !== 4; }))[0]], i = IDEAS.indexOf(it), g = guideForIdea(it);
+  return '<div class="idea" style="--c:' + COL[w.c][0] + '"><b>' + it.n + "</b><span>" + it.why + '</span><div class="meta2"><span class="lv ' + lvCls(t.lvl) + '">' + lvName(t.lvl) + "</span>Starts here · " + w.n + "</div>" + (g ? '<span class="gl">' + gLink(g, "Step-by-step guide (" + g.c + ")") + "</span>" : "") + '<button type="button" class="chip" data-idea="' + i + '">Show me this route →</button></div>';
 }
-function results() {
-  var top = IDEAS.slice().sort(function (a, b) { return score(b) - score(a); }).slice(0, 3);
+var shownIdeas = [];
+function results(more) {
+  if (!more) shownIdeas = [];
+  var pool = IDEAS.filter(function (it) { return shownIdeas.indexOf(it) < 0; }).sort(function (a, b) { return score(b) - score(a); }), intro;
+  if (pool.length < 3) { shownIdeas = []; pool = IDEAS.slice().sort(function (a, b) { return score(b) - score(a); }); intro = "That’s every idea I have! Here are my favorites for you again:"; }
+  var top = pool.slice(0, 3); shownIdeas = shownIdeas.concat(top);
+  intro = intro || (more ? "Here are three more:" : "Here are three I think you’d enjoy:");
   play("jump", 1050); confetti();
-  say("<p>Here are three I think you’d enjoy:</p>" + '<div class="ideas">' + top.map(ideaCard).join("") + "</div>");
-  choices([["Show me different ideas", function () { results(); }], ["Surprise me", surprise], ["Start over", startIdeas], BACK]);
+  say("<p>" + intro + "</p>" + '<div class="ideas">' + top.map(ideaCard).join("") + "</div>");
+  choices([["Show me different ideas", function () { results(true); }], ["Surprise me", surprise], ["Start over", startIdeas], BACK]);
 }
 function surprise() {
   var it = IDEAS[Math.floor(Math.random() * IDEAS.length)];
@@ -1238,19 +1543,20 @@ function surprise() {
 function routeSummary(only) {
   var k = rank()[0].k, w = WF[k], items = [], lk = function (u, t) { return ' <a class="lnk" href="' + u + '" target="_blank" rel="noopener">' + t + " ↗</a>"; };
   if (S.exp === "new") items.push("<b>Get swipe access:</b> in-person orientation" + lk(LINK.orient, "Book") + " and the EHS course" + lk(LINK.ehs, "Open"));
-  var tr = (only && k === S.wf ? only : w.tr).filter(function (x) { return TR[x].lvl !== 4; }).map(function (x) { var t = TR[x]; return t.n + " (" + lvName(t.lvl) + (t.dur ? ", " + t.dur : "") + ")" + (t.url && t.lvl >= 0 && t.lvl <= 1 ? lk(t.url, t.lvl === 1 ? "Book" : "Guide") : t.lvl === 2 || t.lvl === 3 ? " · email " + JOE : ""); });
+  var tr = (only && k === S.wf ? only : w.tr.filter(function (x) { return (w.trOpt || []).indexOf(x) < 0; })).filter(function (x) { return TR[x].lvl !== 4; }).map(function (x) { var t = TR[x]; return t.n + " (" + lvName(t.lvl) + (t.dur ? ", " + t.dur : "") + ")" + (t.url && t.lvl >= 0 && t.lvl <= 1 ? lk(t.url, t.lvl === 1 ? "Book" : "Guide") : t.lvl === 2 || t.lvl === 3 ? " · email " + JOE : ""); });
   items.push("<b>Get trained:</b> " + tr.join("; then "));
   items.push("<b>Book time:</b> " + (STAFFED[w.room] ? (w.room === "Woodshop" ? "staffed shop (" + woodStatus().txt.toLowerCase() + "). " : "staffed shop, open only when staff are here. ") : "") + (w.res.length ? w.res.map(function (r) { return RES[r][0] + lk(RES[r][1], "Reserve"); }).join(", ") : (w.book || "drop in during swipe hours once you’re trained.")));
   items.push("<b>Make it:</b> " + w.make[0]);
   return "<p><b>Best fit: " + w.n + "</b> · " + w.room + "</p><ol>" + items.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ol>";
 }
-function showRoute() { openPanel(false); go("#result"); setTimeout(function () { spot(".route"); }, REDUCE ? 50 : 600); }
+function showRoute() { openPanel(false); go("#result"); setTimeout(function () { spot(".quick"); }, REDUCE ? 50 : 600); }
 function showIdea(it) {
-  S.wf = it.wf; S.mat = it.mat || "any"; S.size = it.size || "m"; S.sub = it.sub || "any"; S.from = "pick";
+  S.wf = it.wf; S.mat = it.mat || "any"; S.size = it.size || "m"; S.sub = it.sub || "any"; S.from = "idea"; S.project = it.n; S.set = null;
   $("#q").value = it.n.charAt(0).toLowerCase() + it.n.slice(1); drawRead(null);
   update(true); play("jump", 1050); confetti();
-  say("<p>Here’s your route for <b>" + it.n.charAt(0).toLowerCase() + it.n.slice(1) + "</b>:</p>" + routeSummary(it.tr));
-  choices([["See the full route on the page", showRoute, 1], ["Show me more ideas", function () { results(); }], BACK]);
+  var g = guideForIdea(it);
+  say("<p>Here’s your route for <b>" + it.n.charAt(0).toLowerCase() + it.n.slice(1) + "</b>:</p>" + routeSummary(it.tr) + (g ? "<p><b>Step-by-step guide:</b> " + gLink(g, g.c + " " + g.n) + "</p>" : ""));
+  choices([["See the full route on the page", showRoute, 1], ["Show me more ideas", function () { results(true); }], BACK]);
 }
 function accessInfo() {
   say('<p>Everyone starts the same way. You need a valid HUID, then:</p><ol><li>An <b>in-person orientation</b> (~20 min, closed-toe shoes). <a class="lnk" href="' + LINK.orient + '" target="_blank" rel="noopener">Book it ↗</a></li><li>The <b>EHS safety course</b> online. <a class="lnk" href="' + LINK.ehs + '" target="_blank" rel="noopener">Open it ↗</a></li></ol><p>Swipe access usually comes through within a week. Have a project in mind before you sign up for machine trainings.</p>');
@@ -1261,7 +1567,8 @@ var TOUR = [
   ["#q", "Describe your idea here in plain words, like “a sign for our lab”, and I’ll find the right machine."],
   ["#tiles", "Or pick one of these fourteen categories."],
   ["#refine", "Then fine-tune by material, size, and whether you’re new to the REEF.", function () { if (!S.wf) { S.wf = "laser"; S.mat = "wood"; S.from = "pick"; update(false); } }],
-  [".route", "Your route: get access, get trained, book time, and make it. Every link takes you to the right sign-up."],
+  [".quick", "Your next steps: get access, get trained, book time, and make it. Each step has one button. Details are tucked underneath."],
+  ["#library", "Want a ready-made first project? These printable guides walk you through it step by step, with the files you need."],
   ["#idxQ", "Looking for a specific machine? Search the full equipment list here."]
 ];
 function tour(i) {
@@ -1665,5 +1972,4 @@ if (GONE) { st.hidden = true; backBtn.hidden = false; }
 
 })();
 </script>
-
 </body></html>
